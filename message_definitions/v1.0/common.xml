@@ -1003,7 +1003,6 @@
         <param index="7">z</param>
       </entry>
       <!-- Camera Controller Mission Commands Enumeration -->
-      <!-- MAV_CMD_DO_DIGICAM_CONFIGURE should be deprecated and replaced with CAMERA_SETTINGS -->
       <entry value="202" name="MAV_CMD_DO_DIGICAM_CONFIGURE" hasLocation="false" isDestination="false">
         <description>Configure digital camera. This is a fallback message for systems that have not yet implemented PARAM_EXT_XXX messages and camera definition files (see https://mavlink.io/en/services/camera_def.html ).</description>
         <param index="1" label="Mode" minValue="0" increment="1">Modes: P, TV, AV, M, Etc.</param>
@@ -1741,6 +1740,7 @@
       <!-- END of user range (31000 to 31999) -->
     </enum>
     <enum name="MAV_DATA_STREAM">
+      <deprecated since="2015-06" replaced_by="MESSAGE_INTERVAL"/>
       <description>A data stream is not a fixed set of messages, but rather a
      recommendation to the autopilot software. Individual autopilots may or may not obey
      the recommended messages.</description>
@@ -1773,7 +1773,8 @@
       </entry>
     </enum>
     <enum name="MAV_ROI">
-      <description>THIS INTERFACE IS DEPRECATED AS OF JANUARY 2018. Please use MAV_CMD_DO_SET_ROI_* messages instead. The ROI (region of interest) for the vehicle. This can be
+      <deprecated since="2018-01" replaced_by="MAV_CMD_DO_SET_ROI_*"/>
+      <description>The ROI (region of interest) for the vehicle. This can be
                 be used by the vehicle for camera/vehicle attitude alignment (see
                 MAV_CMD_NAV_ROI).</description>
       <entry value="0" name="MAV_ROI_NONE">
@@ -3539,6 +3540,7 @@
       <field type="uint8_t" name="rssi">Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.</field>
     </message>
     <message id="66" name="REQUEST_DATA_STREAM">
+      <deprecated since="2015-08" replaced_by="SET_MESSAGE_INTERVAL"/>
       <description>Request a data stream.</description>
       <field type="uint8_t" name="target_system">The target requested to send the message stream.</field>
       <field type="uint8_t" name="target_component">The target requested to send the message stream.</field>
@@ -3547,6 +3549,7 @@
       <field type="uint8_t" name="start_stop">1 to start sending, 0 to stop sending.</field>
     </message>
     <message id="67" name="DATA_STREAM">
+      <deprecated since="2015-08" replaced_by="MESSAGE_INTERVAL"/>
       <description>Data stream status information.</description>
       <field type="uint8_t" name="stream_id">The ID of the requested data stream</field>
       <field type="uint16_t" name="message_rate" units="Hz">The message rate</field>
