@@ -2231,16 +2231,6 @@
         <param index="6">User defined</param>
         <param index="7">User defined</param>
       </entry>
-      <entry value="31020" name="MAV_CMD_AI_DEFLECTION" hasLocation="false" isDestination="false">
-        <description>User defined command to support the AI agent.</description>
-        <param index="1">Normalized x-axis value between -1 and 1 that corresponds to the pitch of the vehicle.</param>
-        <param index="2">Normalized y-axis value between -1 and 1 that corresponds to the roll of the vehicle.</param>
-        <param index="3">Normalized r-axis value between -1 and 1 that corresponds to the yaw of the vehicle.</param>
-        <param index="4">Normalized z-axis value between 0 and 1 that corresponds to the throttle of the vehicle.</param>
-        <param index="5">User defined</param>
-        <param index="6">User defined</param>
-        <param index="7">Bitmask defining the control authorities on the axis that should remain stabilized or tracking an explicit condition. This would imply we can set the aircraft on a course or attitude state that is maintained by an inner-loop control law while evaluating the other axes under AI control.</param>
-      </entry>
       <!-- END of user range (31000 to 31999) -->
     </enum>
     <enum name="MAV_DATA_STREAM">

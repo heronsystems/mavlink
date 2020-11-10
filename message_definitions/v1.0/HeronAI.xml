@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<mavlink>
+  <include>common.xml</include>
+  <!-- Vendors -->
+  <include>ardupilotmega.xml</include>
+  <include>uAvionix.xml</include>
+  <include>icarous.xml</include>
+  <dialect>2</dialect>
+  <!-- Note that APM specific messages should use the command id range from 150 to 250, to leave plenty of room for growth of common.xml If you prototype a message here, then you should consider if it is general enough to move into common.xml later -->
+  <enums>
+    <!-- ardupilot specific MAV_CMD_* commands -->
+    <enum name="MAV_CMD">
+      <entry value="31020" name="MAV_CMD_AI_DEFLECTION" hasLocation="false" isDestination="false">
+        <description>User defined command to support the AI agent.</description>
+        <param index="1">Normalized x-axis value between -1 and 1 that corresponds to the pitch of the vehicle.</param>
+        <param index="2">Normalized y-axis value between -1 and 1 that corresponds to the roll of the vehicle.</param>
+        <param index="3">Normalized r-axis value between -1 and 1 that corresponds to the yaw of the vehicle.</param>
+        <param index="4">Normalized z-axis value between 0 and 1 that corresponds to the throttle of the vehicle.</param>
+        <param index="5">User defined</param>
+        <param index="6">User defined</param>
+        <param index="7">Bitmask defining the control authorities on the axis that should remain stabilized or tracking an explicit condition. This would imply we can set the aircraft on a course or attitude state that is maintained by an inner-loop control law while evaluating the other axes under AI control.</param>
+      </entry>
+    </enum>
+
+    <enum name="PLANE_MODE">
+      <description>A mapping of the additional plane flight modes for custom_mode field of heartbeat.</description>
+      <entry value="30" name="PLANE_MODE_AI_DEFLECTION"/>
+    </enum>
+
+  </enums>
+
+  <messages>
+  </messages>
+
+</mavlink>
