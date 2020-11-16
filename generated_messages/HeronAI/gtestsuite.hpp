@@ -15,6 +15,69 @@ using namespace mavlink;
 #endif
 
 
+TEST(HeronAI, WRITE_EVENT_TO_LOG)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::HeronAI::msg::WRITE_EVENT_TO_LOG packet_in{};
+    packet_in.event_type = 5;
+    packet_in.text = to_char_array("BCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWX");
+
+    mavlink::HeronAI::msg::WRITE_EVENT_TO_LOG packet1{};
+    mavlink::HeronAI::msg::WRITE_EVENT_TO_LOG packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.event_type, packet2.event_type);
+    EXPECT_EQ(packet1.text, packet2.text);
+}
+
+#ifdef TEST_INTEROP
+TEST(HeronAI_interop, WRITE_EVENT_TO_LOG)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_write_event_to_log_t packet_c {
+         5, "BCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWX"
+    };
+
+    mavlink::HeronAI::msg::WRITE_EVENT_TO_LOG packet_in{};
+    packet_in.event_type = 5;
+    packet_in.text = to_char_array("BCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWX");
+
+    mavlink::HeronAI::msg::WRITE_EVENT_TO_LOG packet2{};
+
+    mavlink_msg_write_event_to_log_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.event_type, packet2.event_type);
+    EXPECT_EQ(packet_in.text, packet2.text);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
 TEST(HeronAI, SET_SURFACE_DEFLECTION_NORMALIZED)
 {
     mavlink::mavlink_message_t msg;

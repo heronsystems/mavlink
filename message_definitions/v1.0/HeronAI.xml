@@ -13,9 +13,35 @@
       <entry value="30" name="PLANE_MODE_AI_DEFLECTION"/>
     </enum>
 
+    <enum name="AI_EVENT_TYPE">
+      <description>These values define the type of AI events that could occur during the test evaluation.</description>
+      <entry value="0" name="AI_NEW_TEST_EVALUATION">
+        <description>Denotes the start of a new test evaluation event.</description>
+      </entry>
+      <entry value="1" name="AI_ROUTING_TO_INIITIALIZATION">
+        <description>Beginning of routing of the aircraft to the designated initial test conditions.</description>
+      </entry>
+      <entry value="2" name="AI_ENABLED_CONTROL">
+        <description>Entering the phase in which the AI agent has complete control authority of the aircraft.</description>
+      </entry>
+      <entry value="3" name="AI_ABORTED_TEST">
+        <description>An event or situation had occured causing the test to be aborted.</description>
+      </entry>
+      <entry value="4" name="AI_CEASING_TEST_EVALUATION">
+        <description>Testing conducted under the coordinating AI_NEW_TEST_EVALUATION tag is stopping.</description>
+      </entry>
+    </enum>
+
   </enums>
 
   <messages>
+
+    <message id="401" name="WRITE_EVENT_TO_LOG">
+      <description>Generic writer enabling 3rd party software sources to </description>
+      <field type="uint8_t" name="event_type" enum="AI_EVENT_TYPE">The type of event associated with the tag information.</field>
+      <field type="char[50]" name="text">Useer defined descriptor useful for describing the event.</field>
+    </message>
+
     <message id="400" name="SET_SURFACE_DEFLECTION_NORMALIZED">
       <description>Sets the deflection of the control surfaces of the aircraft. Principally used with fixed wing.</description>
       <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
@@ -27,6 +53,7 @@
       <field type="float" name="rudder_deflection">Normalized r-axis value between -1 and 1 that corresponds to the rudders of the vehicle.</field>
       <field type="float" name="throttle_deflection">Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)</field>
     </message>
+
   </messages>
 
 </mavlink>
