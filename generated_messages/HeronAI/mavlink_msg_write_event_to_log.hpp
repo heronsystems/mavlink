@@ -20,7 +20,7 @@ struct WRITE_EVENT_TO_LOG : mavlink::Message {
 
 
     uint8_t event_type; /*<  The type of event associated with the tag information. */
-    std::array<char, 50> text; /*<  Useer defined descriptor useful for describing the event. */
+    std::array<char, 50> text; /*<  User defined descriptor useful for describing the event. */
 
 
     inline std::string get_name(void) const override

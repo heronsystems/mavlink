@@ -13,22 +13,60 @@
       <entry value="30" name="PLANE_MODE_AI_DEFLECTION"/>
     </enum>
 
-    <enum name="AI_EVENT_TYPE">
+    <enum name="LOGGING_EVENT_TAGS">
       <description>These values define the type of AI events that could occur during the test evaluation.</description>
-      <entry value="0" name="AI_NEW_TEST_EVALUATION">
+      <entry value="0" name="NEW_TEST_EVALUATION">
         <description>Denotes the start of a new test evaluation event.</description>
       </entry>
-      <entry value="1" name="AI_ROUTING_TO_INIITIALIZATION">
+      <entry value="1" name="ROUTING_TO_INIITIALIZATION">
         <description>Beginning of routing of the aircraft to the designated initial test conditions.</description>
       </entry>
-      <entry value="2" name="AI_ENABLED_CONTROL">
+      <entry value="2" name="ENABLED_CONTROL">
         <description>Entering the phase in which the AI agent has complete control authority of the aircraft.</description>
       </entry>
-      <entry value="3" name="AI_ABORTED_TEST">
+      <entry value="3" name="INTERESTING_OBSERVATION">
+        <description>Entering the phase in which the AI agent has complete control authority of the aircraft.</description>
+      </entry>
+      <entry value="4" name="ABORTED_TEST">
         <description>An event or situation had occured causing the test to be aborted.</description>
       </entry>
-      <entry value="4" name="AI_CEASING_TEST_EVALUATION">
+      <entry value="5" name="CEASING_TEST_EVALUATION">
         <description>Testing conducted under the coordinating AI_NEW_TEST_EVALUATION tag is stopping.</description>
+      </entry>
+      <entry value="6" name="GENERIC_ENTRY">
+        <description>Generic string push to all the logging structures.</description>
+      </entry>
+    </enum>
+
+    <enum name="AI_PROCEDURAL_COMMANDS">
+      <description>These values define the type of AI events that could occur during the test evaluation.</description>
+      <entry value="0" name="RELEASE">
+        <description>Denotes release authority of the aircraft to begin AI control. This is a psuedonym to the paddle functionality mimicing real-world authority.</description>
+      </entry>
+      <entry value="1" name="START">
+        <description>Denotes the start of a new test evaluation event.</description>
+      </entry>
+      <entry value="2" name="STOP">
+        <description>Stops the current test evaluation event. Associated with the appropriate termination conditions have been met and autonomously validated the conditions required.</description>
+      </entry>
+      <entry value="3" name="ABORT">
+        <description>Denotes a user interrupted test event. Often associated with conditions that were either deemed unsafe or unsatisfactory per the evaluating personnel.</description>
+      </entry>
+    </enum>
+
+    <enum name="AI_TERMINATION_CRITERIA">
+      <description>These values create the termination criteria for an evaluation event.</description>
+      <entry value="0" name="RUNTIME">
+        <description>Denotes that the evaluation event should last for a specified duration of time. </description>
+      </entry>
+      <entry value="1" name="STEADY_STATE">
+        <description>Denotes that the module can evaluate if a steady-state condition has been reached. This is often assoiciated with a performance evaluation type of test procedure.</description>
+      </entry>
+      <entry value="2" name="CLOSURE">
+        <description>Denotes a termination criteria that should an agent close in on a specified agent and range the </description>
+      </entry>
+      <entry value="3" name="INFINTIE">
+        <description>Denotes a user interrupted test event. Often associated with conditions that were either deemed unsafe or unsatisfactory per the evaluating personnel.</description>
       </entry>
     </enum>
 
@@ -36,13 +74,18 @@
 
   <messages>
 
-    <message id="401" name="WRITE_EVENT_TO_LOG">
+    <message id="400" name="AI_EXECUTE_PROCEDURAL">
       <description>Generic writer enabling 3rd party software sources to </description>
-      <field type="uint8_t" name="event_type" enum="AI_EVENT_TYPE">The type of event associated with the tag information.</field>
-      <field type="char[50]" name="text">Useer defined descriptor useful for describing the event.</field>
+      <field type="uint8_t" name="procedural_type" enum="AI_PROCEDURAL_COMMANDS">The type of event to be performed.</field>
     </message>
 
-    <message id="400" name="SET_SURFACE_DEFLECTION_NORMALIZED">
+    <message id="401" name="WRITE_EVENT_TO_LOG">
+      <description>Generic writer enabling 3rd party software sources to </description>
+      <field type="uint8_t" name="event_type" enum="LOGGING_EVENT_TAGS">The type of event associated with the tag information.</field>
+      <field type="char[50]" name="text">User defined descriptor useful for describing the event.</field>
+    </message>
+
+    <message id="402" name="SET_SURFACE_DEFLECTION_NORMALIZED">
       <description>Sets the deflection of the control surfaces of the aircraft. Principally used with fixed wing.</description>
       <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
       <field type="uint8_t" name="target_system">System ID</field>
