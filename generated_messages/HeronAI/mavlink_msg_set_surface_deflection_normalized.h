@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE SET_SURFACE_DEFLECTION_NORMALIZED PACKING
 
-#define MAVLINK_MSG_ID_SET_SURFACE_DEFLECTION_NORMALIZED 400
+#define MAVLINK_MSG_ID_SET_SURFACE_DEFLECTION_NORMALIZED 402
 
 
 typedef struct __mavlink_set_surface_deflection_normalized_t {
@@ -17,17 +17,17 @@ typedef struct __mavlink_set_surface_deflection_normalized_t {
 
 #define MAVLINK_MSG_ID_SET_SURFACE_DEFLECTION_NORMALIZED_LEN 23
 #define MAVLINK_MSG_ID_SET_SURFACE_DEFLECTION_NORMALIZED_MIN_LEN 23
-#define MAVLINK_MSG_ID_400_LEN 23
-#define MAVLINK_MSG_ID_400_MIN_LEN 23
+#define MAVLINK_MSG_ID_402_LEN 23
+#define MAVLINK_MSG_ID_402_MIN_LEN 23
 
 #define MAVLINK_MSG_ID_SET_SURFACE_DEFLECTION_NORMALIZED_CRC 28
-#define MAVLINK_MSG_ID_400_CRC 28
+#define MAVLINK_MSG_ID_402_CRC 28
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_SET_SURFACE_DEFLECTION_NORMALIZED { \
-    400, \
+    402, \
     "SET_SURFACE_DEFLECTION_NORMALIZED", \
     8, \
     {  { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_set_surface_deflection_normalized_t, time_boot_ms) }, \

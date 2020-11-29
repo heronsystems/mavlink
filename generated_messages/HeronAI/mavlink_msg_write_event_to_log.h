@@ -6,7 +6,7 @@
 
 typedef struct __mavlink_write_event_to_log_t {
  uint8_t event_type; /*<  The type of event associated with the tag information.*/
- char text[50]; /*<  Useer defined descriptor useful for describing the event.*/
+ char text[50]; /*<  User defined descriptor useful for describing the event.*/
 } mavlink_write_event_to_log_t;
 
 #define MAVLINK_MSG_ID_WRITE_EVENT_TO_LOG_LEN 51
@@ -45,7 +45,7 @@ typedef struct __mavlink_write_event_to_log_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param event_type  The type of event associated with the tag information.
- * @param text  Useer defined descriptor useful for describing the event.
+ * @param text  User defined descriptor useful for describing the event.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_write_event_to_log_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -74,7 +74,7 @@ static inline uint16_t mavlink_msg_write_event_to_log_pack(uint8_t system_id, ui
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param event_type  The type of event associated with the tag information.
- * @param text  Useer defined descriptor useful for describing the event.
+ * @param text  User defined descriptor useful for describing the event.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_write_event_to_log_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -129,7 +129,7 @@ static inline uint16_t mavlink_msg_write_event_to_log_encode_chan(uint8_t system
  * @param chan MAVLink channel to send the message
  *
  * @param event_type  The type of event associated with the tag information.
- * @param text  Useer defined descriptor useful for describing the event.
+ * @param text  User defined descriptor useful for describing the event.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -204,7 +204,7 @@ static inline uint8_t mavlink_msg_write_event_to_log_get_event_type(const mavlin
 /**
  * @brief Get field text from write_event_to_log message
  *
- * @return  Useer defined descriptor useful for describing the event.
+ * @return  User defined descriptor useful for describing the event.
  */
 static inline uint16_t mavlink_msg_write_event_to_log_get_text(const mavlink_message_t* msg, char *text)
 {
