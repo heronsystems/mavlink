@@ -15,6 +15,235 @@ using namespace mavlink;
 #endif
 
 
+TEST(HeronAI, MACE_HEARTBEAT)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::HeronAI::msg::MACE_HEARTBEAT packet_in{};
+    packet_in.protocol = 5;
+    packet_in.type = 72;
+    packet_in.autopilot = 139;
+    packet_in.vehicle_mode = 206;
+    packet_in.vehicle_armed = 17;
+    packet_in.mission_state = 84;
+    packet_in.mace_companion = 151;
+    packet_in.mavlink_version = 2;
+    packet_in.mavlinkID = 29;
+
+    mavlink::HeronAI::msg::MACE_HEARTBEAT packet1{};
+    mavlink::HeronAI::msg::MACE_HEARTBEAT packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.protocol, packet2.protocol);
+    EXPECT_EQ(packet1.type, packet2.type);
+    EXPECT_EQ(packet1.autopilot, packet2.autopilot);
+    EXPECT_EQ(packet1.vehicle_mode, packet2.vehicle_mode);
+    EXPECT_EQ(packet1.vehicle_armed, packet2.vehicle_armed);
+    EXPECT_EQ(packet1.mission_state, packet2.mission_state);
+    EXPECT_EQ(packet1.mace_companion, packet2.mace_companion);
+    EXPECT_EQ(packet1.mavlink_version, packet2.mavlink_version);
+    EXPECT_EQ(packet1.mavlinkID, packet2.mavlinkID);
+}
+
+#ifdef TEST_INTEROP
+TEST(HeronAI_interop, MACE_HEARTBEAT)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_mace_heartbeat_t packet_c {
+         5, 72, 139, 206, 17, 84, 151, 2, 29
+    };
+
+    mavlink::HeronAI::msg::MACE_HEARTBEAT packet_in{};
+    packet_in.protocol = 5;
+    packet_in.type = 72;
+    packet_in.autopilot = 139;
+    packet_in.vehicle_mode = 206;
+    packet_in.vehicle_armed = 17;
+    packet_in.mission_state = 84;
+    packet_in.mace_companion = 151;
+    packet_in.mavlink_version = 2;
+    packet_in.mavlinkID = 29;
+
+    mavlink::HeronAI::msg::MACE_HEARTBEAT packet2{};
+
+    mavlink_msg_mace_heartbeat_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.protocol, packet2.protocol);
+    EXPECT_EQ(packet_in.type, packet2.type);
+    EXPECT_EQ(packet_in.autopilot, packet2.autopilot);
+    EXPECT_EQ(packet_in.vehicle_mode, packet2.vehicle_mode);
+    EXPECT_EQ(packet_in.vehicle_armed, packet2.vehicle_armed);
+    EXPECT_EQ(packet_in.mission_state, packet2.mission_state);
+    EXPECT_EQ(packet_in.mace_companion, packet2.mace_companion);
+    EXPECT_EQ(packet_in.mavlink_version, packet2.mavlink_version);
+    EXPECT_EQ(packet_in.mavlinkID, packet2.mavlinkID);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
+TEST(HeronAI, VEHICLE_SYNC)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::HeronAI::msg::VEHICLE_SYNC packet_in{};
+    packet_in.target_system = 5;
+
+    mavlink::HeronAI::msg::VEHICLE_SYNC packet1{};
+    mavlink::HeronAI::msg::VEHICLE_SYNC packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.target_system, packet2.target_system);
+}
+
+#ifdef TEST_INTEROP
+TEST(HeronAI_interop, VEHICLE_SYNC)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_vehicle_sync_t packet_c {
+         5
+    };
+
+    mavlink::HeronAI::msg::VEHICLE_SYNC packet_in{};
+    packet_in.target_system = 5;
+
+    mavlink::HeronAI::msg::VEHICLE_SYNC packet2{};
+
+    mavlink_msg_vehicle_sync_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.target_system, packet2.target_system);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
+TEST(HeronAI, GUIDED_TARGET_STATS)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::HeronAI::msg::GUIDED_TARGET_STATS packet_in{};
+    packet_in.x = 17.0;
+    packet_in.y = 45.0;
+    packet_in.z = 73.0;
+    packet_in.distance = 101.0;
+    packet_in.coordinate_frame = 53;
+    packet_in.state = 120;
+
+    mavlink::HeronAI::msg::GUIDED_TARGET_STATS packet1{};
+    mavlink::HeronAI::msg::GUIDED_TARGET_STATS packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.x, packet2.x);
+    EXPECT_EQ(packet1.y, packet2.y);
+    EXPECT_EQ(packet1.z, packet2.z);
+    EXPECT_EQ(packet1.distance, packet2.distance);
+    EXPECT_EQ(packet1.coordinate_frame, packet2.coordinate_frame);
+    EXPECT_EQ(packet1.state, packet2.state);
+}
+
+#ifdef TEST_INTEROP
+TEST(HeronAI_interop, GUIDED_TARGET_STATS)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_guided_target_stats_t packet_c {
+         17.0, 45.0, 73.0, 101.0, 53, 120
+    };
+
+    mavlink::HeronAI::msg::GUIDED_TARGET_STATS packet_in{};
+    packet_in.x = 17.0;
+    packet_in.y = 45.0;
+    packet_in.z = 73.0;
+    packet_in.distance = 101.0;
+    packet_in.coordinate_frame = 53;
+    packet_in.state = 120;
+
+    mavlink::HeronAI::msg::GUIDED_TARGET_STATS packet2{};
+
+    mavlink_msg_guided_target_stats_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.x, packet2.x);
+    EXPECT_EQ(packet_in.y, packet2.y);
+    EXPECT_EQ(packet_in.z, packet2.z);
+    EXPECT_EQ(packet_in.distance, packet2.distance);
+    EXPECT_EQ(packet_in.coordinate_frame, packet2.coordinate_frame);
+    EXPECT_EQ(packet_in.state, packet2.state);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
 TEST(HeronAI, AI_EXECUTE_PROCEDURAL)
 {
     mavlink::mavlink_message_t msg;
