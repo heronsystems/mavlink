@@ -13,6 +13,13 @@
       <entry value="30" name="PLANE_MODE_AI_DEFLECTION"/>
     </enum>
 
+    <enum name="MAV_FRAME">
+      <description>A mapping of additional coordinate frames.</description>
+      <entry value="30" name="MAV_FRAME_GLOBAL_UNKNOWN"/>
+      <entry value="31" name="MAV_FRAME_LOCAL_UNKNOWN"/>
+      <entry value="32" name="MAV_FRAME_BODY_ENU"/>
+    </enum>
+
     <enum name="LOGGING_EVENT_TAGS">
       <description>These values define the type of AI events that could occur during the test evaluation.</description>
       <entry value="0" name="NEW_TEST_EVALUATION">
@@ -73,6 +80,34 @@
   </enums>
 
   <messages>
+
+    <message id="397" name="MACE_HEARTBEAT">
+      <description>The heartbeat message shows that a system is present and responding. The type of the MAV and Autopilot hardware allow the receiving system to treat further messages from this system appropriate (e.g. by laying out the user interface based on the autopilot).</description>
+      <field type="uint8_t" name="protocol" enum="MAV_TYPE">Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)</field>
+      <field type="uint8_t" name="type" enum="MAV_TYPE">Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)</field>
+      <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class. defined in MAV_AUTOPILOT ENUM</field>
+      <field type="uint8_t" name="vehicle_mode">The flight mode in its enumerated form. This must be cast per the type of vehicle it is.</field>
+      <field type="uint8_t" name="vehicle_armed">Boolean describing whether(T=1) or not(F=0) the vehicle is armed.</field>
+      <field type="uint8_t" name="mission_state">Defines the current state of the vehicle mission. Useful for determing the next state of the vehicle per mission state.</field>
+      <field type="uint8_t" name="mace_companion">Boolean describing whether(T=1) or not(F=0) the vehicle is MACE companion equipped.</field>
+      <field type="uint8_t_mavlink_version" name="mavlink_version">MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version</field>
+      <field type="uint8_t" name="mavlinkID"></field>
+    </message>
+
+    <message id="398" name="VEHICLE_SYNC">
+      <description>This initiates a sync request to enable the receiving mace instance to begin dumping relevant data needed to reconstruct vehicles current state.</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+    </message>
+
+    <message id="399" name="GUIDED_TARGET_STATS">
+      <description>Message containing stats relating to the aircrafts perception of a current target position along a trajectory and its distance.</description>
+      <field type="float" name="x">X position of this position in the defined coordinate frame.</field>
+      <field type="float" name="y">Y position of this position in the defined coordinate frame.</field>
+      <field type="float" name="z">Z position of this position in the defined coordinate frame.</field>
+      <field type="float" name="distance">Relative distance away the system is from the target location.</field>
+      <field type="uint8_t" name="coordinate_frame">Coordinate frame of the position vector. This field is as related to the MAV_FRAME definition.</field>
+      <field type="uint8_t" name="state">Current state of the controller in pursuit of the guided state.</field>
+    </message>
 
     <message id="400" name="AI_EXECUTE_PROCEDURAL">
       <description>Generic writer enabling 3rd party software sources to </description>
