@@ -89,3 +89,169 @@ TEST(mace_common_interop, COMMAND_SHORT)
 #endif
 }
 #endif
+
+TEST(mace_common, EXECUTE_SPATIAL_ACTION)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION packet_in{};
+    packet_in.target_system = 101;
+    packet_in.target_component = 168;
+    packet_in.action = 18691;
+    packet_in.frame = 235;
+    packet_in.dimension = 46;
+    packet_in.mask = 18795;
+    packet_in.param1 = 17.0;
+    packet_in.param2 = 45.0;
+    packet_in.param3 = 73.0;
+    packet_in.param4 = 101.0;
+    packet_in.param5 = 129.0;
+    packet_in.param6 = 157.0;
+    packet_in.param7 = 185.0;
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION packet1{};
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.target_system, packet2.target_system);
+    EXPECT_EQ(packet1.target_component, packet2.target_component);
+    EXPECT_EQ(packet1.action, packet2.action);
+    EXPECT_EQ(packet1.frame, packet2.frame);
+    EXPECT_EQ(packet1.dimension, packet2.dimension);
+    EXPECT_EQ(packet1.mask, packet2.mask);
+    EXPECT_EQ(packet1.param1, packet2.param1);
+    EXPECT_EQ(packet1.param2, packet2.param2);
+    EXPECT_EQ(packet1.param3, packet2.param3);
+    EXPECT_EQ(packet1.param4, packet2.param4);
+    EXPECT_EQ(packet1.param5, packet2.param5);
+    EXPECT_EQ(packet1.param6, packet2.param6);
+    EXPECT_EQ(packet1.param7, packet2.param7);
+}
+
+#ifdef TEST_INTEROP
+TEST(mace_common_interop, EXECUTE_SPATIAL_ACTION)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_execute_spatial_action_t packet_c {
+         17.0, 45.0, 73.0, 101.0, 129.0, 157.0, 185.0, 18691, 18795, 101, 168, 235, 46
+    };
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION packet_in{};
+    packet_in.target_system = 101;
+    packet_in.target_component = 168;
+    packet_in.action = 18691;
+    packet_in.frame = 235;
+    packet_in.dimension = 46;
+    packet_in.mask = 18795;
+    packet_in.param1 = 17.0;
+    packet_in.param2 = 45.0;
+    packet_in.param3 = 73.0;
+    packet_in.param4 = 101.0;
+    packet_in.param5 = 129.0;
+    packet_in.param6 = 157.0;
+    packet_in.param7 = 185.0;
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION packet2{};
+
+    mavlink_msg_execute_spatial_action_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.target_system, packet2.target_system);
+    EXPECT_EQ(packet_in.target_component, packet2.target_component);
+    EXPECT_EQ(packet_in.action, packet2.action);
+    EXPECT_EQ(packet_in.frame, packet2.frame);
+    EXPECT_EQ(packet_in.dimension, packet2.dimension);
+    EXPECT_EQ(packet_in.mask, packet2.mask);
+    EXPECT_EQ(packet_in.param1, packet2.param1);
+    EXPECT_EQ(packet_in.param2, packet2.param2);
+    EXPECT_EQ(packet_in.param3, packet2.param3);
+    EXPECT_EQ(packet_in.param4, packet2.param4);
+    EXPECT_EQ(packet_in.param5, packet2.param5);
+    EXPECT_EQ(packet_in.param6, packet2.param6);
+    EXPECT_EQ(packet_in.param7, packet2.param7);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
+TEST(mace_common, EXECUTE_SPATIAL_ACTION_ACK)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION_ACK packet_in{};
+    packet_in.result = 5;
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION_ACK packet1{};
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION_ACK packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.result, packet2.result);
+}
+
+#ifdef TEST_INTEROP
+TEST(mace_common_interop, EXECUTE_SPATIAL_ACTION_ACK)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_execute_spatial_action_ack_t packet_c {
+         5
+    };
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION_ACK packet_in{};
+    packet_in.result = 5;
+
+    mavlink::mace_common::msg::EXECUTE_SPATIAL_ACTION_ACK packet2{};
+
+    mavlink_msg_execute_spatial_action_ack_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.result, packet2.result);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
