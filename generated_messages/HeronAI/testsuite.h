@@ -13,6 +13,7 @@ extern "C" {
 #ifndef MAVLINK_TEST_ALL
 #define MAVLINK_TEST_ALL
 static void mavlink_test_common(uint8_t, uint8_t, mavlink_message_t *last_msg);
+static void mavlink_test_mace_boundary(uint8_t, uint8_t, mavlink_message_t *last_msg);
 static void mavlink_test_mace_common(uint8_t, uint8_t, mavlink_message_t *last_msg);
 static void mavlink_test_mace_mission(uint8_t, uint8_t, mavlink_message_t *last_msg);
 static void mavlink_test_ardupilotmega(uint8_t, uint8_t, mavlink_message_t *last_msg);
@@ -23,6 +24,7 @@ static void mavlink_test_HeronAI(uint8_t, uint8_t, mavlink_message_t *last_msg);
 static void mavlink_test_all(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
     mavlink_test_common(system_id, component_id, last_msg);
+    mavlink_test_mace_boundary(system_id, component_id, last_msg);
     mavlink_test_mace_common(system_id, component_id, last_msg);
     mavlink_test_mace_mission(system_id, component_id, last_msg);
     mavlink_test_ardupilotmega(system_id, component_id, last_msg);
@@ -33,6 +35,7 @@ static void mavlink_test_all(uint8_t system_id, uint8_t component_id, mavlink_me
 #endif
 
 #include "../common/testsuite.h"
+#include "../mace_boundary/testsuite.h"
 #include "../mace_common/testsuite.h"
 #include "../mace_mission/testsuite.h"
 #include "../ardupilotmega/testsuite.h"
