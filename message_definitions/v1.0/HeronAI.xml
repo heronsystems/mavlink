@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <mavlink>
   <include>common.xml</include>
+  <include>mace_common.xml</include>
   <include>mace_mission.xml</include>
   <!-- Vendors -->
   <include>ardupilotmega.xml</include>
