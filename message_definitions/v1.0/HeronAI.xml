@@ -77,6 +77,19 @@
       </entry>
     </enum>
 
+    <enum name="MAV_CMD">
+      <description>Extending the commands to be executed by the MAV. They can be executed on user request, or as part of a mission script. If the action is used in a mission, the parameter mapping to the waypoint/mission message is as follows: Param 1, Param 2, Param 3, Param 4, X: Param 5, Y:Param 6, Z:Param 7. This command list is similar what ARINC 424 is for commercial aircraft: A data format how to interpret waypoint/mission data. NaN and INT32_MAX may be used in float/integer params (respectively) to indicate optional/default values (e.g. to use the component's current yaw or latitude rather than a specific value). See https://mavlink.io/en/guide</description>
+      <entry value="31015" name="SET_SURFACE_DEFLECTION_NORMALIZED" hasLocation="false" isDestination="false">
+        <description>User defined command. Ground Station will not show the Vehicle as flying through this item. Example: MAV_CMD_DO_SET_PARAMETER item.</description>
+        <param index="1">Bitmask defining the control authorities on the axis that should remain stabilized or tracking an explicit condition. This would imply we can set the aircraft on a course or attitude state that is maintained by an inner-loop control law while evaluating the other axes under AI control.</param>
+        <param index="2">elevator_deflection: Normalized x-axis value between -1 and 1 that corresponds to the elevators of the vehicle.</param>
+        <param index="3">aileron_deflectiond: Normalized y-axis value between -1 and 1 that corresponds to the ailerons of the vehicle.</param>
+        <param index="4">rudder_deflectiond: Normalized r-axis value between -1 and 1 that corresponds to the rudders of the vehicle.</param>
+        <param index="5">throttle_deflection: Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)</param>
+        <param index="6">User defined</param>
+        <param index="7">User defined</param>
+      </entry>
+    </enum>
   </enums>
 
   <messages>
@@ -118,18 +131,6 @@
       <description>Generic writer enabling 3rd party software sources to </description>
       <field type="uint8_t" name="event_type" enum="LOGGING_EVENT_TAGS">The type of event associated with the tag information.</field>
       <field type="char[50]" name="text">User defined descriptor useful for describing the event.</field>
-    </message>
-
-    <message id="402" name="SET_SURFACE_DEFLECTION_NORMALIZED">
-      <description>Sets the deflection of the control surfaces of the aircraft. Principally used with fixed wing.</description>
-      <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
-      <field type="uint8_t" name="target_system">System ID</field>
-      <field type="uint8_t" name="target_component">Component ID</field>
-      <field type="uint8_t" name="surface_mask">Bitmask defining the control authorities on the axis that should remain stabilized or tracking an explicit condition. This would imply we can set the aircraft on a course or attitude state that is maintained by an inner-loop control law while evaluating the other axes under AI control.</field>
-      <field type="float" name="elevator_deflection">Normalized x-axis value between -1 and 1 that corresponds to the elevators of the vehicle.</field>
-      <field type="float" name="aileron_deflection">Normalized y-axis value between -1 and 1 that corresponds to the ailerons of the vehicle.</field>
-      <field type="float" name="rudder_deflection">Normalized r-axis value between -1 and 1 that corresponds to the rudders of the vehicle.</field>
-      <field type="float" name="throttle_deflection">Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)</field>
     </message>
 
   </messages>
