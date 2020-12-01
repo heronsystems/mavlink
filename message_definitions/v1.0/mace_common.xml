@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<mavlink>
+  <version>3</version>
+  <dialect>0</dialect>
+
+  <messages>
+    <message id="12400" name="COMMAND_SHORT">
+      <description>A short command message for those messages only requiring one parameter. Th</description>
+      <field type="uint16_t" name="command" enum="MAV_CMD">Command ID, as defined by MAV_CMD enum.is was established to reduce the bandwidth required of messages not requiring as much parameterized data.</field>
+      <field type="uint8_t" name="target_system">System which should execute the command</field>
+      <field type="uint8_t" name="target_component">Component which should execute the command, 0 for all components</field>
+      <field type="uint8_t" name="confirmation">0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)</field>
+      <field type="float" name="param1">Parameter as defined by MAV_CMD enum.</field>
+    </message>
+ 
+  </messages>
+</mavlink>
