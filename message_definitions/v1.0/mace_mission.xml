@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<mavlink>
+  <version>3</version>
+  <dialect>0</dialect>
+
+  <messages>
+
+    <message id="500" name="REQUEST_HOME_POSITION">
+      <description>The home position relating to the mission of the target system has been requested.</description>
+      <field type="uint8_t" name="target_system">The system which the home position is being requested from.</field>
+    </message>
+
+    <message id="501" name="HOME_POSITION_ACK">
+      <description>An acknowledgement of setting the home position.</description>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="ack">Acknowledgement of the home position set request.</field>
+    </message>
+
+    <message id="502" name="GUIDED_TARGET_STATS">
+      <description>Message containing stats relating to the aircrafts perception of a current target position along a trajectory and its distance.</description>
+      <field type="float" name="x">X position of this position in the defined coordinate frame.</field>
+      <field type="float" name="y">Y position of this position in the defined coordinate frame.</field>
+      <field type="float" name="z">Z position of this position in the defined coordinate frame.</field>
+      <field type="float" name="distance">Relative distance away the system is from the target location.</field>
+      <field type="uint8_t" name="coordinate_frame">Coordinate frame of the position vector. This field is as related to the MAV_FRAME definition.</field>
+      <field type="uint8_t" name="state">Current state of the controller in pursuit of the guided state.</field>
+    </message>
+ 
+  </messages>
+</mavlink>
