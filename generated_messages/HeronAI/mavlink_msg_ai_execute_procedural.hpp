@@ -12,7 +12,7 @@ namespace msg {
  * Generic writer enabling 3rd party software sources to 
  */
 struct AI_EXECUTE_PROCEDURAL : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 400;
+    static constexpr msgid_t MSG_ID = 12002;
     static constexpr size_t LENGTH = 1;
     static constexpr size_t MIN_LENGTH = 1;
     static constexpr uint8_t CRC_EXTRA = 112;

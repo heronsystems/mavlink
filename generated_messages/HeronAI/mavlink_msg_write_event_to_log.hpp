@@ -12,7 +12,7 @@ namespace msg {
  * Generic writer enabling 3rd party software sources to 
  */
 struct WRITE_EVENT_TO_LOG : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 401;
+    static constexpr msgid_t MSG_ID = 12003;
     static constexpr size_t LENGTH = 51;
     static constexpr size_t MIN_LENGTH = 51;
     static constexpr uint8_t CRC_EXTRA = 151;

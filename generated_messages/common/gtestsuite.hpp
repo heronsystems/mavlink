@@ -2646,6 +2646,8 @@ TEST(common, MISSION_COUNT)
     packet_in.target_component = 206;
     packet_in.count = 17235;
     packet_in.mission_type = 17;
+    packet_in.mission_creator = 84;
+    packet_in.mission_id = 151;
 
     mavlink::common::msg::MISSION_COUNT packet1{};
     mavlink::common::msg::MISSION_COUNT packet2{};
@@ -2664,6 +2666,8 @@ TEST(common, MISSION_COUNT)
     EXPECT_EQ(packet1.target_component, packet2.target_component);
     EXPECT_EQ(packet1.count, packet2.count);
     EXPECT_EQ(packet1.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet1.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet1.mission_id, packet2.mission_id);
 }
 
 #ifdef TEST_INTEROP
@@ -2675,7 +2679,7 @@ TEST(common_interop, MISSION_COUNT)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_mission_count_t packet_c {
-         17235, 139, 206, 17
+         17235, 139, 206, 17, 84, 151
     };
 
     mavlink::common::msg::MISSION_COUNT packet_in{};
@@ -2683,6 +2687,8 @@ TEST(common_interop, MISSION_COUNT)
     packet_in.target_component = 206;
     packet_in.count = 17235;
     packet_in.mission_type = 17;
+    packet_in.mission_creator = 84;
+    packet_in.mission_id = 151;
 
     mavlink::common::msg::MISSION_COUNT packet2{};
 
@@ -2699,6 +2705,8 @@ TEST(common_interop, MISSION_COUNT)
     EXPECT_EQ(packet_in.target_component, packet2.target_component);
     EXPECT_EQ(packet_in.count, packet2.count);
     EXPECT_EQ(packet_in.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet_in.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet_in.mission_id, packet2.mission_id);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);
@@ -2843,6 +2851,8 @@ TEST(common, MISSION_ACK)
     packet_in.target_component = 72;
     packet_in.type = 139;
     packet_in.mission_type = 206;
+    packet_in.mission_creator = 17;
+    packet_in.mission_id = 84;
 
     mavlink::common::msg::MISSION_ACK packet1{};
     mavlink::common::msg::MISSION_ACK packet2{};
@@ -2861,6 +2871,8 @@ TEST(common, MISSION_ACK)
     EXPECT_EQ(packet1.target_component, packet2.target_component);
     EXPECT_EQ(packet1.type, packet2.type);
     EXPECT_EQ(packet1.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet1.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet1.mission_id, packet2.mission_id);
 }
 
 #ifdef TEST_INTEROP
@@ -2872,7 +2884,7 @@ TEST(common_interop, MISSION_ACK)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_mission_ack_t packet_c {
-         5, 72, 139, 206
+         5, 72, 139, 206, 17, 84
     };
 
     mavlink::common::msg::MISSION_ACK packet_in{};
@@ -2880,6 +2892,8 @@ TEST(common_interop, MISSION_ACK)
     packet_in.target_component = 72;
     packet_in.type = 139;
     packet_in.mission_type = 206;
+    packet_in.mission_creator = 17;
+    packet_in.mission_id = 84;
 
     mavlink::common::msg::MISSION_ACK packet2{};
 
@@ -2896,6 +2910,8 @@ TEST(common_interop, MISSION_ACK)
     EXPECT_EQ(packet_in.target_component, packet2.target_component);
     EXPECT_EQ(packet_in.type, packet2.type);
     EXPECT_EQ(packet_in.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet_in.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet_in.mission_id, packet2.mission_id);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);
@@ -3151,6 +3167,8 @@ TEST(common, MISSION_REQUEST_INT)
     packet_in.target_component = 206;
     packet_in.seq = 17235;
     packet_in.mission_type = 17;
+    packet_in.mission_creator = 84;
+    packet_in.mission_id = 151;
 
     mavlink::common::msg::MISSION_REQUEST_INT packet1{};
     mavlink::common::msg::MISSION_REQUEST_INT packet2{};
@@ -3169,6 +3187,8 @@ TEST(common, MISSION_REQUEST_INT)
     EXPECT_EQ(packet1.target_component, packet2.target_component);
     EXPECT_EQ(packet1.seq, packet2.seq);
     EXPECT_EQ(packet1.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet1.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet1.mission_id, packet2.mission_id);
 }
 
 #ifdef TEST_INTEROP
@@ -3180,7 +3200,7 @@ TEST(common_interop, MISSION_REQUEST_INT)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_mission_request_int_t packet_c {
-         17235, 139, 206, 17
+         17235, 139, 206, 17, 84, 151
     };
 
     mavlink::common::msg::MISSION_REQUEST_INT packet_in{};
@@ -3188,6 +3208,8 @@ TEST(common_interop, MISSION_REQUEST_INT)
     packet_in.target_component = 206;
     packet_in.seq = 17235;
     packet_in.mission_type = 17;
+    packet_in.mission_creator = 84;
+    packet_in.mission_id = 151;
 
     mavlink::common::msg::MISSION_REQUEST_INT packet2{};
 
@@ -3204,6 +3226,8 @@ TEST(common_interop, MISSION_REQUEST_INT)
     EXPECT_EQ(packet_in.target_component, packet2.target_component);
     EXPECT_EQ(packet_in.seq, packet2.seq);
     EXPECT_EQ(packet_in.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet_in.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet_in.mission_id, packet2.mission_id);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);
@@ -4266,6 +4290,8 @@ TEST(common, MISSION_ITEM_INT)
     packet_in.y = 963498504;
     packet_in.z = 185.0;
     packet_in.mission_type = 180;
+    packet_in.mission_creator = 247;
+    packet_in.mission_id = 58;
 
     mavlink::common::msg::MISSION_ITEM_INT packet1{};
     mavlink::common::msg::MISSION_ITEM_INT packet2{};
@@ -4295,6 +4321,8 @@ TEST(common, MISSION_ITEM_INT)
     EXPECT_EQ(packet1.y, packet2.y);
     EXPECT_EQ(packet1.z, packet2.z);
     EXPECT_EQ(packet1.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet1.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet1.mission_id, packet2.mission_id);
 }
 
 #ifdef TEST_INTEROP
@@ -4306,7 +4334,7 @@ TEST(common_interop, MISSION_ITEM_INT)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_mission_item_int_t packet_c {
-         17.0, 45.0, 73.0, 101.0, 963498296, 963498504, 185.0, 18691, 18795, 101, 168, 235, 46, 113, 180
+         17.0, 45.0, 73.0, 101.0, 963498296, 963498504, 185.0, 18691, 18795, 101, 168, 235, 46, 113, 180, 247, 58
     };
 
     mavlink::common::msg::MISSION_ITEM_INT packet_in{};
@@ -4325,6 +4353,8 @@ TEST(common_interop, MISSION_ITEM_INT)
     packet_in.y = 963498504;
     packet_in.z = 185.0;
     packet_in.mission_type = 180;
+    packet_in.mission_creator = 247;
+    packet_in.mission_id = 58;
 
     mavlink::common::msg::MISSION_ITEM_INT packet2{};
 
@@ -4352,6 +4382,8 @@ TEST(common_interop, MISSION_ITEM_INT)
     EXPECT_EQ(packet_in.y, packet2.y);
     EXPECT_EQ(packet_in.z, packet2.z);
     EXPECT_EQ(packet_in.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet_in.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet_in.mission_id, packet2.mission_id);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);

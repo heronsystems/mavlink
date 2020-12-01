@@ -12,7 +12,7 @@ namespace msg {
  * This initiates a sync request to enable the receiving mace instance to begin dumping relevant data needed to reconstruct vehicles current state.
  */
 struct VEHICLE_SYNC : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 398;
+    static constexpr msgid_t MSG_ID = 12001;
     static constexpr size_t LENGTH = 1;
     static constexpr size_t MIN_LENGTH = 1;
     static constexpr uint8_t CRC_EXTRA = 178;

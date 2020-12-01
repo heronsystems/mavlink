@@ -3888,6 +3888,8 @@
       <field type="uint16_t" name="count">Number of mission items in the sequence</field>
       <extensions/>
       <field type="uint8_t" name="mission_type" enum="MAV_MISSION_TYPE">Mission type.</field>
+      <field type="uint8_t" name="mission_creator">Creator ID</field>
+      <field type="uint8_t" name="mission_id">Mission ID</field>
     </message>
     <message id="45" name="MISSION_CLEAR_ALL">
       <description>Delete all mission items at once.</description>
@@ -3907,6 +3909,8 @@
       <field type="uint8_t" name="type" enum="MAV_MISSION_RESULT">Mission result.</field>
       <extensions/>
       <field type="uint8_t" name="mission_type" enum="MAV_MISSION_TYPE">Mission type.</field>
+      <field type="uint8_t" name="mission_creator">Creator ID</field>
+      <field type="uint8_t" name="mission_id">Mission ID</field>
     </message>
     <message id="48" name="SET_GPS_GLOBAL_ORIGIN">
       <description>Sets the GPS co-ordinates of the vehicle local origin (0,0,0) position. Vehicle should emit GPS_GLOBAL_ORIGIN irrespective of whether the origin is changed. This enables transform between the local coordinate frame and the global (GPS) coordinate frame, which may be necessary when (for example) indoor and outdoor settings are connected and the MAV should move from in- to outdoor.</description>
@@ -3944,6 +3948,8 @@
       <field type="uint16_t" name="seq">Sequence</field>
       <extensions/>
       <field type="uint8_t" name="mission_type" enum="MAV_MISSION_TYPE">Mission type.</field>
+      <field type="uint8_t" name="mission_creator">Creator ID</field>
+      <field type="uint8_t" name="mission_id">Mission ID</field>
     </message>
     <message id="54" name="SAFETY_SET_ALLOWED_AREA">
       <description>Set a safety zone (volume), which is defined by two corners of a cube. This message can be used to tell the MAV which setpoints/waypoints to accept and which to reject. Safety areas are often enforced by national or competition regulations.</description>
@@ -4105,6 +4111,8 @@
       <field type="float" name="z">PARAM7 / z position: global: altitude in meters (relative or absolute, depending on frame.</field>
       <extensions/>
       <field type="uint8_t" name="mission_type" enum="MAV_MISSION_TYPE">Mission type.</field>
+      <field type="uint8_t" name="mission_creator">Creator ID</field>
+      <field type="uint8_t" name="mission_id">Mission ID</field>
     </message>
     <message id="74" name="VFR_HUD">
       <description>Metrics typically displayed on a HUD for fixed wing aircraft.</description>

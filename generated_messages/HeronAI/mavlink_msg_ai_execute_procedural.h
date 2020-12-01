@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE AI_EXECUTE_PROCEDURAL PACKING
 
-#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL 400
+#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL 12002
 
 
 typedef struct __mavlink_ai_execute_procedural_t {
@@ -10,17 +10,17 @@ typedef struct __mavlink_ai_execute_procedural_t {
 
 #define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN 1
 #define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN 1
-#define MAVLINK_MSG_ID_400_LEN 1
-#define MAVLINK_MSG_ID_400_MIN_LEN 1
+#define MAVLINK_MSG_ID_12002_LEN 1
+#define MAVLINK_MSG_ID_12002_MIN_LEN 1
 
 #define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC 112
-#define MAVLINK_MSG_ID_400_CRC 112
+#define MAVLINK_MSG_ID_12002_CRC 112
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_AI_EXECUTE_PROCEDURAL { \
-    400, \
+    12002, \
     "AI_EXECUTE_PROCEDURAL", \
     1, \
     {  { "procedural_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_ai_execute_procedural_t, procedural_type) }, \

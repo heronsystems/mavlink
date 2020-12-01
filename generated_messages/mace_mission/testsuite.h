@@ -25,6 +25,64 @@ static void mavlink_test_all(uint8_t system_id, uint8_t component_id, mavlink_me
 
 
 
+static void mavlink_test_new_onboard_mission(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_NEW_ONBOARD_MISSION >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_new_onboard_mission_t packet_in = {
+        5,72,139,206,17
+    };
+    mavlink_new_onboard_mission_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.mission_system = packet_in.mission_system;
+        packet1.mission_creator = packet_in.mission_creator;
+        packet1.mission_id = packet_in.mission_id;
+        packet1.mission_type = packet_in.mission_type;
+        packet1.mission_state = packet_in.mission_state;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_NEW_ONBOARD_MISSION_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_NEW_ONBOARD_MISSION_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_new_onboard_mission_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_new_onboard_mission_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_new_onboard_mission_pack(system_id, component_id, &msg , packet1.mission_system , packet1.mission_creator , packet1.mission_id , packet1.mission_type , packet1.mission_state );
+    mavlink_msg_new_onboard_mission_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_new_onboard_mission_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.mission_system , packet1.mission_creator , packet1.mission_id , packet1.mission_type , packet1.mission_state );
+    mavlink_msg_new_onboard_mission_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_new_onboard_mission_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_new_onboard_mission_send(MAVLINK_COMM_1 , packet1.mission_system , packet1.mission_creator , packet1.mission_id , packet1.mission_type , packet1.mission_state );
+    mavlink_msg_new_onboard_mission_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
 static void mavlink_test_request_home_position(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -195,6 +253,7 @@ static void mavlink_test_guided_target_stats(uint8_t system_id, uint8_t componen
 
 static void mavlink_test_mace_mission(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
+    mavlink_test_new_onboard_mission(system_id, component_id, last_msg);
     mavlink_test_request_home_position(system_id, component_id, last_msg);
     mavlink_test_home_position_ack(system_id, component_id, last_msg);
     mavlink_test_guided_target_stats(system_id, component_id, last_msg);

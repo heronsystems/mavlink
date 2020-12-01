@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE MACE_HEARTBEAT PACKING
 
-#define MAVLINK_MSG_ID_MACE_HEARTBEAT 397
+#define MAVLINK_MSG_ID_MACE_HEARTBEAT 12000
 
 
 typedef struct __mavlink_mace_heartbeat_t {
@@ -18,17 +18,17 @@ typedef struct __mavlink_mace_heartbeat_t {
 
 #define MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN 9
 #define MAVLINK_MSG_ID_MACE_HEARTBEAT_MIN_LEN 9
-#define MAVLINK_MSG_ID_397_LEN 9
-#define MAVLINK_MSG_ID_397_MIN_LEN 9
+#define MAVLINK_MSG_ID_12000_LEN 9
+#define MAVLINK_MSG_ID_12000_MIN_LEN 9
 
 #define MAVLINK_MSG_ID_MACE_HEARTBEAT_CRC 251
-#define MAVLINK_MSG_ID_397_CRC 251
+#define MAVLINK_MSG_ID_12000_CRC 251
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_MACE_HEARTBEAT { \
-    397, \
+    12000, \
     "MACE_HEARTBEAT", \
     9, \
     {  { "protocol", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_mace_heartbeat_t, protocol) }, \
