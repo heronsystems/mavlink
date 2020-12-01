@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <mavlink>
   <include>common.xml</include>
+  <include>mace_mission.xml</include>
   <!-- Vendors -->
   <include>ardupilotmega.xml</include>
   <include>uAvionix.xml</include>
   <include>icarous.xml</include>
+
   <dialect>2</dialect>
   <!-- Note that APM specific messages should use the command id range from 150 to 250, to leave plenty of room for growth of common.xml If you prototype a message here, then you should consider if it is general enough to move into common.xml later -->
   <enums>
@@ -110,16 +112,6 @@
     <message id="398" name="VEHICLE_SYNC">
       <description>This initiates a sync request to enable the receiving mace instance to begin dumping relevant data needed to reconstruct vehicles current state.</description>
       <field type="uint8_t" name="target_system">System ID</field>
-    </message>
-
-    <message id="399" name="GUIDED_TARGET_STATS">
-      <description>Message containing stats relating to the aircrafts perception of a current target position along a trajectory and its distance.</description>
-      <field type="float" name="x">X position of this position in the defined coordinate frame.</field>
-      <field type="float" name="y">Y position of this position in the defined coordinate frame.</field>
-      <field type="float" name="z">Z position of this position in the defined coordinate frame.</field>
-      <field type="float" name="distance">Relative distance away the system is from the target location.</field>
-      <field type="uint8_t" name="coordinate_frame">Coordinate frame of the position vector. This field is as related to the MAV_FRAME definition.</field>
-      <field type="uint8_t" name="state">Current state of the controller in pursuit of the guided state.</field>
     </message>
 
     <message id="400" name="AI_EXECUTE_PROCEDURAL">
