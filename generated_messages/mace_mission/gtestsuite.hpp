@@ -15,6 +15,81 @@ using namespace mavlink;
 #endif
 
 
+TEST(mace_mission, NEW_ONBOARD_MISSION)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::mace_mission::msg::NEW_ONBOARD_MISSION packet_in{};
+    packet_in.mission_system = 5;
+    packet_in.mission_creator = 72;
+    packet_in.mission_id = 139;
+    packet_in.mission_type = 206;
+    packet_in.mission_state = 17;
+
+    mavlink::mace_mission::msg::NEW_ONBOARD_MISSION packet1{};
+    mavlink::mace_mission::msg::NEW_ONBOARD_MISSION packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.mission_system, packet2.mission_system);
+    EXPECT_EQ(packet1.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet1.mission_id, packet2.mission_id);
+    EXPECT_EQ(packet1.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet1.mission_state, packet2.mission_state);
+}
+
+#ifdef TEST_INTEROP
+TEST(mace_mission_interop, NEW_ONBOARD_MISSION)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_new_onboard_mission_t packet_c {
+         5, 72, 139, 206, 17
+    };
+
+    mavlink::mace_mission::msg::NEW_ONBOARD_MISSION packet_in{};
+    packet_in.mission_system = 5;
+    packet_in.mission_creator = 72;
+    packet_in.mission_id = 139;
+    packet_in.mission_type = 206;
+    packet_in.mission_state = 17;
+
+    mavlink::mace_mission::msg::NEW_ONBOARD_MISSION packet2{};
+
+    mavlink_msg_new_onboard_mission_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.mission_system, packet2.mission_system);
+    EXPECT_EQ(packet_in.mission_creator, packet2.mission_creator);
+    EXPECT_EQ(packet_in.mission_id, packet2.mission_id);
+    EXPECT_EQ(packet_in.mission_type, packet2.mission_type);
+    EXPECT_EQ(packet_in.mission_state, packet2.mission_state);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
 TEST(mace_mission, REQUEST_HOME_POSITION)
 {
     mavlink::mavlink_message_t msg;

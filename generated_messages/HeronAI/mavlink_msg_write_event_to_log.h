@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE WRITE_EVENT_TO_LOG PACKING
 
-#define MAVLINK_MSG_ID_WRITE_EVENT_TO_LOG 401
+#define MAVLINK_MSG_ID_WRITE_EVENT_TO_LOG 12003
 
 
 typedef struct __mavlink_write_event_to_log_t {
@@ -11,17 +11,17 @@ typedef struct __mavlink_write_event_to_log_t {
 
 #define MAVLINK_MSG_ID_WRITE_EVENT_TO_LOG_LEN 51
 #define MAVLINK_MSG_ID_WRITE_EVENT_TO_LOG_MIN_LEN 51
-#define MAVLINK_MSG_ID_401_LEN 51
-#define MAVLINK_MSG_ID_401_MIN_LEN 51
+#define MAVLINK_MSG_ID_12003_LEN 51
+#define MAVLINK_MSG_ID_12003_MIN_LEN 51
 
 #define MAVLINK_MSG_ID_WRITE_EVENT_TO_LOG_CRC 151
-#define MAVLINK_MSG_ID_401_CRC 151
+#define MAVLINK_MSG_ID_12003_CRC 151
 
 #define MAVLINK_MSG_WRITE_EVENT_TO_LOG_FIELD_TEXT_LEN 50
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_WRITE_EVENT_TO_LOG { \
-    401, \
+    12003, \
     "WRITE_EVENT_TO_LOG", \
     2, \
     {  { "event_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_write_event_to_log_t, event_type) }, \

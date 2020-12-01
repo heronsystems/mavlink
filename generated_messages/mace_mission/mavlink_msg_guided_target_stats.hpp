@@ -12,7 +12,7 @@ namespace msg {
  * Message containing stats relating to the aircrafts perception of a current target position along a trajectory and its distance.
  */
 struct GUIDED_TARGET_STATS : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 502;
+    static constexpr msgid_t MSG_ID = 12503;
     static constexpr size_t LENGTH = 18;
     static constexpr size_t MIN_LENGTH = 18;
     static constexpr uint8_t CRC_EXTRA = 12;

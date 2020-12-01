@@ -96,7 +96,7 @@
 
   <messages>
 
-    <message id="397" name="MACE_HEARTBEAT">
+    <message id="12000" name="MACE_HEARTBEAT">
       <description>The heartbeat message shows that a system is present and responding. The type of the MAV and Autopilot hardware allow the receiving system to treat further messages from this system appropriate (e.g. by laying out the user interface based on the autopilot).</description>
       <field type="uint8_t" name="protocol" enum="MAV_TYPE">Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)</field>
       <field type="uint8_t" name="type" enum="MAV_TYPE">Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)</field>
@@ -109,17 +109,17 @@
       <field type="uint8_t" name="mavlinkID"></field>
     </message>
 
-    <message id="398" name="VEHICLE_SYNC">
+    <message id="12001" name="VEHICLE_SYNC">
       <description>This initiates a sync request to enable the receiving mace instance to begin dumping relevant data needed to reconstruct vehicles current state.</description>
       <field type="uint8_t" name="target_system">System ID</field>
     </message>
 
-    <message id="400" name="AI_EXECUTE_PROCEDURAL">
+    <message id="12002" name="AI_EXECUTE_PROCEDURAL">
       <description>Generic writer enabling 3rd party software sources to </description>
       <field type="uint8_t" name="procedural_type" enum="AI_PROCEDURAL_COMMANDS">The type of event to be performed.</field>
     </message>
 
-    <message id="401" name="WRITE_EVENT_TO_LOG">
+    <message id="12003" name="WRITE_EVENT_TO_LOG">
       <description>Generic writer enabling 3rd party software sources to </description>
       <field type="uint8_t" name="event_type" enum="LOGGING_EVENT_TAGS">The type of event associated with the tag information.</field>
       <field type="char[50]" name="text">User defined descriptor useful for describing the event.</field>

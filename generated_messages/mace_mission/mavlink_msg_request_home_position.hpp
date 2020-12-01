@@ -12,7 +12,7 @@ namespace msg {
  * The home position relating to the mission of the target system has been requested.
  */
 struct REQUEST_HOME_POSITION : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 500;
+    static constexpr msgid_t MSG_ID = 12501;
     static constexpr size_t LENGTH = 1;
     static constexpr size_t MIN_LENGTH = 1;
     static constexpr uint8_t CRC_EXTRA = 219;

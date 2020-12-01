@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE VEHICLE_SYNC PACKING
 
-#define MAVLINK_MSG_ID_VEHICLE_SYNC 398
+#define MAVLINK_MSG_ID_VEHICLE_SYNC 12001
 
 
 typedef struct __mavlink_vehicle_sync_t {
@@ -10,17 +10,17 @@ typedef struct __mavlink_vehicle_sync_t {
 
 #define MAVLINK_MSG_ID_VEHICLE_SYNC_LEN 1
 #define MAVLINK_MSG_ID_VEHICLE_SYNC_MIN_LEN 1
-#define MAVLINK_MSG_ID_398_LEN 1
-#define MAVLINK_MSG_ID_398_MIN_LEN 1
+#define MAVLINK_MSG_ID_12001_LEN 1
+#define MAVLINK_MSG_ID_12001_MIN_LEN 1
 
 #define MAVLINK_MSG_ID_VEHICLE_SYNC_CRC 178
-#define MAVLINK_MSG_ID_398_CRC 178
+#define MAVLINK_MSG_ID_12001_CRC 178
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_VEHICLE_SYNC { \
-    398, \
+    12001, \
     "VEHICLE_SYNC", \
     1, \
     {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_vehicle_sync_t, target_system) }, \

@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE REQUEST_HOME_POSITION PACKING
 
-#define MAVLINK_MSG_ID_REQUEST_HOME_POSITION 500
+#define MAVLINK_MSG_ID_REQUEST_HOME_POSITION 12501
 
 
 typedef struct __mavlink_request_home_position_t {
@@ -10,17 +10,17 @@ typedef struct __mavlink_request_home_position_t {
 
 #define MAVLINK_MSG_ID_REQUEST_HOME_POSITION_LEN 1
 #define MAVLINK_MSG_ID_REQUEST_HOME_POSITION_MIN_LEN 1
-#define MAVLINK_MSG_ID_500_LEN 1
-#define MAVLINK_MSG_ID_500_MIN_LEN 1
+#define MAVLINK_MSG_ID_12501_LEN 1
+#define MAVLINK_MSG_ID_12501_MIN_LEN 1
 
 #define MAVLINK_MSG_ID_REQUEST_HOME_POSITION_CRC 219
-#define MAVLINK_MSG_ID_500_CRC 219
+#define MAVLINK_MSG_ID_12501_CRC 219
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_REQUEST_HOME_POSITION { \
-    500, \
+    12501, \
     "REQUEST_HOME_POSITION", \
     1, \
     {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_request_home_position_t, target_system) }, \

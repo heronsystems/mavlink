@@ -12,7 +12,7 @@ namespace msg {
  * The heartbeat message shows that a system is present and responding. The type of the MAV and Autopilot hardware allow the receiving system to treat further messages from this system appropriate (e.g. by laying out the user interface based on the autopilot).
  */
 struct MACE_HEARTBEAT : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 397;
+    static constexpr msgid_t MSG_ID = 12000;
     static constexpr size_t LENGTH = 9;
     static constexpr size_t MIN_LENGTH = 9;
     static constexpr uint8_t CRC_EXTRA = 251;

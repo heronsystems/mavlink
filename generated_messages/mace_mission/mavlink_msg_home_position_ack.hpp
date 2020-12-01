@@ -12,7 +12,7 @@ namespace msg {
  * An acknowledgement of setting the home position.
  */
 struct HOME_POSITION_ACK : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 501;
+    static constexpr msgid_t MSG_ID = 12502;
     static constexpr size_t LENGTH = 2;
     static constexpr size_t MIN_LENGTH = 2;
     static constexpr uint8_t CRC_EXTRA = 21;
