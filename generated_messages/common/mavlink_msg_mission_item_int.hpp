@@ -14,7 +14,7 @@ namespace msg {
  */
 struct MISSION_ITEM_INT : mavlink::Message {
     static constexpr msgid_t MSG_ID = 73;
-    static constexpr size_t LENGTH = 40;
+    static constexpr size_t LENGTH = 38;
     static constexpr size_t MIN_LENGTH = 37;
     static constexpr uint8_t CRC_EXTRA = 38;
     static constexpr auto NAME = "MISSION_ITEM_INT";
@@ -35,8 +35,6 @@ struct MISSION_ITEM_INT : mavlink::Message {
     int32_t y; /*<  PARAM6 / y position: local: x position in meters * 1e4, global: longitude in degrees *10^7 */
     float z; /*<  PARAM7 / z position: global: altitude in meters (relative or absolute, depending on frame. */
     uint8_t mission_type; /*<  Mission type. */
-    uint8_t mission_creator; /*<  Creator ID */
-    uint8_t mission_id; /*<  Mission ID */
 
 
     inline std::string get_name(void) const override
@@ -69,8 +67,6 @@ struct MISSION_ITEM_INT : mavlink::Message {
         ss << "  y: " << y << std::endl;
         ss << "  z: " << z << std::endl;
         ss << "  mission_type: " << +mission_type << std::endl;
-        ss << "  mission_creator: " << +mission_creator << std::endl;
-        ss << "  mission_id: " << +mission_id << std::endl;
 
         return ss.str();
     }
@@ -94,8 +90,6 @@ struct MISSION_ITEM_INT : mavlink::Message {
         map << current;                       // offset: 35
         map << autocontinue;                  // offset: 36
         map << mission_type;                  // offset: 37
-        map << mission_creator;               // offset: 38
-        map << mission_id;                    // offset: 39
     }
 
     inline void deserialize(mavlink::MsgMap &map) override
@@ -115,8 +109,6 @@ struct MISSION_ITEM_INT : mavlink::Message {
         map >> current;                       // offset: 35
         map >> autocontinue;                  // offset: 36
         map >> mission_type;                  // offset: 37
-        map >> mission_creator;               // offset: 38
-        map >> mission_id;                    // offset: 39
     }
 };
 
