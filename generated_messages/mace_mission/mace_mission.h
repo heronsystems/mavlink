@@ -24,7 +24,7 @@ extern "C" {
 #endif
 
 #ifndef MAVLINK_MESSAGE_CRCS
-#define MAVLINK_MESSAGE_CRCS {{12500, 132, 5, 5, 0, 0, 0}, {12501, 219, 1, 1, 1, 0, 0}, {12502, 21, 2, 2, 1, 0, 0}, {12503, 12, 18, 18, 0, 0, 0}}
+#define MAVLINK_MESSAGE_CRCS {{12500, 132, 5, 5, 0, 0, 0}, {12501, 219, 1, 1, 1, 0, 0}, {12502, 21, 2, 2, 1, 0, 0}, {12503, 232, 4, 7, 3, 2, 3}, {12504, 57, 3, 6, 3, 0, 1}, {12505, 13, 4, 7, 3, 2, 3}, {12506, 117, 37, 40, 3, 32, 33}, {12507, 12, 18, 18, 0, 0, 0}}
 #endif
 
 #include "../protocol.h"
@@ -63,6 +63,10 @@ typedef enum MAV_MISSION_STATE
 #include "./mavlink_msg_new_onboard_mission.h"
 #include "./mavlink_msg_request_home_position.h"
 #include "./mavlink_msg_home_position_ack.h"
+#include "./mavlink_msg_mace_mission_count.h"
+#include "./mavlink_msg_mace_mission_ack.h"
+#include "./mavlink_msg_mace_mission_request_int.h"
+#include "./mavlink_msg_mace_mission_item_int.h"
 #include "./mavlink_msg_guided_target_stats.h"
 
 // base include
@@ -72,8 +76,8 @@ typedef enum MAV_MISSION_STATE
 #define MAVLINK_THIS_XML_IDX 4
 
 #if MAVLINK_THIS_XML_IDX == MAVLINK_PRIMARY_XML_IDX
-# define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_NEW_ONBOARD_MISSION, MAVLINK_MESSAGE_INFO_REQUEST_HOME_POSITION, MAVLINK_MESSAGE_INFO_HOME_POSITION_ACK, MAVLINK_MESSAGE_INFO_GUIDED_TARGET_STATS}
-# define MAVLINK_MESSAGE_NAMES {{ "GUIDED_TARGET_STATS", 12503 }, { "HOME_POSITION_ACK", 12502 }, { "NEW_ONBOARD_MISSION", 12500 }, { "REQUEST_HOME_POSITION", 12501 }}
+# define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_NEW_ONBOARD_MISSION, MAVLINK_MESSAGE_INFO_REQUEST_HOME_POSITION, MAVLINK_MESSAGE_INFO_HOME_POSITION_ACK, MAVLINK_MESSAGE_INFO_MACE_MISSION_COUNT, MAVLINK_MESSAGE_INFO_MACE_MISSION_ACK, MAVLINK_MESSAGE_INFO_MACE_MISSION_REQUEST_INT, MAVLINK_MESSAGE_INFO_MACE_MISSION_ITEM_INT, MAVLINK_MESSAGE_INFO_GUIDED_TARGET_STATS}
+# define MAVLINK_MESSAGE_NAMES {{ "GUIDED_TARGET_STATS", 12507 }, { "HOME_POSITION_ACK", 12502 }, { "MACE_MISSION_ACK", 12504 }, { "MACE_MISSION_COUNT", 12503 }, { "MACE_MISSION_ITEM_INT", 12506 }, { "MACE_MISSION_REQUEST_INT", 12505 }, { "NEW_ONBOARD_MISSION", 12500 }, { "REQUEST_HOME_POSITION", 12501 }}
 # if MAVLINK_COMMAND_24BIT
 #  include "../mavlink_get_info.h"
 # endif

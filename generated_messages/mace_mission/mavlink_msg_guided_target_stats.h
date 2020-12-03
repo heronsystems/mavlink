@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE GUIDED_TARGET_STATS PACKING
 
-#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS 12503
+#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS 12507
 
 
 typedef struct __mavlink_guided_target_stats_t {
@@ -15,17 +15,17 @@ typedef struct __mavlink_guided_target_stats_t {
 
 #define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN 18
 #define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_MIN_LEN 18
-#define MAVLINK_MSG_ID_12503_LEN 18
-#define MAVLINK_MSG_ID_12503_MIN_LEN 18
+#define MAVLINK_MSG_ID_12507_LEN 18
+#define MAVLINK_MSG_ID_12507_MIN_LEN 18
 
 #define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_CRC 12
-#define MAVLINK_MSG_ID_12503_CRC 12
+#define MAVLINK_MSG_ID_12507_CRC 12
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_GUIDED_TARGET_STATS { \
-    12503, \
+    12507, \
     "GUIDED_TARGET_STATS", \
     6, \
     {  { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_guided_target_stats_t, x) }, \
