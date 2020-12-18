@@ -108,7 +108,7 @@ typedef enum MAV_FRAME
 typedef enum LOGGING_EVENT_TAGS
 {
    NEW_TEST_EVALUATION=0, /* Denotes the start of a new test evaluation event. | */
-   ROUTING_TO_INIITIALIZATION=1, /* Beginning of routing of the aircraft to the designated initial test conditions. | */
+   ROUTING_TO_INITIALIZATION=1, /* Beginning of routing of the aircraft to the designated initial test conditions. | */
    ENABLED_CONTROL=2, /* Entering the phase in which the AI agent has complete control authority of the aircraft. | */
    INTERESTING_OBSERVATION=3, /* Entering the phase in which the AI agent has complete control authority of the aircraft. | */
    ABORTED_TEST=4, /* An event or situation had occured causing the test to be aborted. | */

@@ -29,7 +29,7 @@
       <entry value="0" name="NEW_TEST_EVALUATION">
         <description>Denotes the start of a new test evaluation event.</description>
       </entry>
-      <entry value="1" name="ROUTING_TO_INIITIALIZATION">
+      <entry value="1" name="ROUTING_TO_INITIALIZATION">
         <description>Beginning of routing of the aircraft to the designated initial test conditions.</description>
       </entry>
       <entry value="2" name="ENABLED_CONTROL">
