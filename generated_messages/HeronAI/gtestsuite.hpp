@@ -286,3 +286,78 @@ TEST(HeronAI_interop, WRITE_EVENT_TO_LOG)
 #endif
 }
 #endif
+
+TEST(HeronAI, EXECUTE_SURFACE_DEFLECTION_OVERRIDE)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::HeronAI::msg::EXECUTE_SURFACE_DEFLECTION_OVERRIDE packet_in{};
+    packet_in.event_type = 17.0;
+    packet_in.deflection_elevator = 45.0;
+    packet_in.deflection_aileron = 73.0;
+    packet_in.deflection_rudder = 101.0;
+    packet_in.deflection_throttle = 129.0;
+
+    mavlink::HeronAI::msg::EXECUTE_SURFACE_DEFLECTION_OVERRIDE packet1{};
+    mavlink::HeronAI::msg::EXECUTE_SURFACE_DEFLECTION_OVERRIDE packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.event_type, packet2.event_type);
+    EXPECT_EQ(packet1.deflection_elevator, packet2.deflection_elevator);
+    EXPECT_EQ(packet1.deflection_aileron, packet2.deflection_aileron);
+    EXPECT_EQ(packet1.deflection_rudder, packet2.deflection_rudder);
+    EXPECT_EQ(packet1.deflection_throttle, packet2.deflection_throttle);
+}
+
+#ifdef TEST_INTEROP
+TEST(HeronAI_interop, EXECUTE_SURFACE_DEFLECTION_OVERRIDE)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_execute_surface_deflection_override_t packet_c {
+         17.0, 45.0, 73.0, 101.0, 129.0
+    };
+
+    mavlink::HeronAI::msg::EXECUTE_SURFACE_DEFLECTION_OVERRIDE packet_in{};
+    packet_in.event_type = 17.0;
+    packet_in.deflection_elevator = 45.0;
+    packet_in.deflection_aileron = 73.0;
+    packet_in.deflection_rudder = 101.0;
+    packet_in.deflection_throttle = 129.0;
+
+    mavlink::HeronAI::msg::EXECUTE_SURFACE_DEFLECTION_OVERRIDE packet2{};
+
+    mavlink_msg_execute_surface_deflection_override_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.event_type, packet2.event_type);
+    EXPECT_EQ(packet_in.deflection_elevator, packet2.deflection_elevator);
+    EXPECT_EQ(packet_in.deflection_aileron, packet2.deflection_aileron);
+    EXPECT_EQ(packet_in.deflection_rudder, packet2.deflection_rudder);
+    EXPECT_EQ(packet_in.deflection_throttle, packet2.deflection_throttle);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif

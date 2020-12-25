@@ -127,6 +127,15 @@
       <field type="char[50]" name="text">User defined descriptor useful for describing the event.</field>
     </message>
 
+    <message id="12004" name="EXECUTE_SURFACE_DEFLECTION_OVERRIDE">
+      <description>Command sent by a companion asset overriding any deflections set from the flight controller. The vehicle must be in the appropriate mode to support this command. It will not change modes in response to receiving this command.</description>
+      <field type="float" name="event_type">Bitmask defining the control authorities on the axis that should remain stabilized or tracking an explicit condition. This would imply we can set the aircraft on a course or attitude state that is maintained by an inner-loop control law while evaluating the other axes under AI control.</field>
+      <field type="float" name="deflection_elevator">elevator_deflection: Normalized x-axis value between -1 and 1 that corresponds to the elevators of the vehicle.</field>
+      <field type="float" name="deflection_aileron">aileron_deflectiond: Normalized y-axis value between -1 and 1 that corresponds to the ailerons of the vehicle.</field>
+      <field type="float" name="deflection_rudder">Normalized r-axis value between -1 and 1 that corresponds to the rudders of the vehicle.</field>
+      <field type="float" name="deflection_throttle">throttle_deflection: Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust).</field>
+    </message>
+
   </messages>
 
 </mavlink>
