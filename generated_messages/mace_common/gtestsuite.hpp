@@ -15,6 +15,81 @@ using namespace mavlink;
 #endif
 
 
+TEST(mace_common, MACE_HEARTBEAT)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::mace_common::msg::MACE_HEARTBEAT packet_in{};
+    packet_in.type = 5;
+    packet_in.autopilot = 72;
+    packet_in.flight_mode = 139;
+    packet_in.vehicle_hsm = 206;
+    packet_in.mavlink_version = 3;
+
+    mavlink::mace_common::msg::MACE_HEARTBEAT packet1{};
+    mavlink::mace_common::msg::MACE_HEARTBEAT packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+    EXPECT_EQ(packet1.type, packet2.type);
+    EXPECT_EQ(packet1.autopilot, packet2.autopilot);
+    EXPECT_EQ(packet1.flight_mode, packet2.flight_mode);
+    EXPECT_EQ(packet1.vehicle_hsm, packet2.vehicle_hsm);
+    EXPECT_EQ(packet1.mavlink_version, packet2.mavlink_version);
+}
+
+#ifdef TEST_INTEROP
+TEST(mace_common_interop, MACE_HEARTBEAT)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_mace_heartbeat_t packet_c {
+         5, 72, 139, 206, 3
+    };
+
+    mavlink::mace_common::msg::MACE_HEARTBEAT packet_in{};
+    packet_in.type = 5;
+    packet_in.autopilot = 72;
+    packet_in.flight_mode = 139;
+    packet_in.vehicle_hsm = 206;
+    packet_in.mavlink_version = 3;
+
+    mavlink::mace_common::msg::MACE_HEARTBEAT packet2{};
+
+    mavlink_msg_mace_heartbeat_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+    EXPECT_EQ(packet_in.type, packet2.type);
+    EXPECT_EQ(packet_in.autopilot, packet2.autopilot);
+    EXPECT_EQ(packet_in.flight_mode, packet2.flight_mode);
+    EXPECT_EQ(packet_in.vehicle_hsm, packet2.vehicle_hsm);
+    EXPECT_EQ(packet_in.mavlink_version, packet2.mavlink_version);
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif
+
 TEST(mace_common, COMMAND_SHORT)
 {
     mavlink::mavlink_message_t msg;

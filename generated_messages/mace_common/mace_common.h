@@ -24,7 +24,7 @@ extern "C" {
 #endif
 
 #ifndef MAVLINK_MESSAGE_CRCS
-#define MAVLINK_MESSAGE_CRCS {{12400, 79, 9, 9, 3, 6, 7}, {12401, 48, 36, 36, 3, 32, 33}, {12402, 108, 1, 1, 0, 0, 0}}
+#define MAVLINK_MESSAGE_CRCS {{12400, 179, 5, 5, 0, 0, 0}, {12401, 79, 9, 9, 3, 6, 7}, {12402, 48, 36, 36, 3, 32, 33}, {12403, 108, 1, 1, 0, 0, 0}}
 #endif
 
 #include "../protocol.h"
@@ -47,6 +47,7 @@ extern "C" {
 #endif
 
 // MESSAGE DEFINITIONS
+#include "./mavlink_msg_mace_heartbeat.h"
 #include "./mavlink_msg_command_short.h"
 #include "./mavlink_msg_execute_spatial_action.h"
 #include "./mavlink_msg_execute_spatial_action_ack.h"
@@ -58,8 +59,8 @@ extern "C" {
 #define MAVLINK_THIS_XML_IDX 3
 
 #if MAVLINK_THIS_XML_IDX == MAVLINK_PRIMARY_XML_IDX
-# define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_COMMAND_SHORT, MAVLINK_MESSAGE_INFO_EXECUTE_SPATIAL_ACTION, MAVLINK_MESSAGE_INFO_EXECUTE_SPATIAL_ACTION_ACK}
-# define MAVLINK_MESSAGE_NAMES {{ "COMMAND_SHORT", 12400 }, { "EXECUTE_SPATIAL_ACTION", 12401 }, { "EXECUTE_SPATIAL_ACTION_ACK", 12402 }}
+# define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_MACE_HEARTBEAT, MAVLINK_MESSAGE_INFO_COMMAND_SHORT, MAVLINK_MESSAGE_INFO_EXECUTE_SPATIAL_ACTION, MAVLINK_MESSAGE_INFO_EXECUTE_SPATIAL_ACTION_ACK}
+# define MAVLINK_MESSAGE_NAMES {{ "COMMAND_SHORT", 12401 }, { "EXECUTE_SPATIAL_ACTION", 12402 }, { "EXECUTE_SPATIAL_ACTION_ACK", 12403 }, { "MACE_HEARTBEAT", 12400 }}
 # if MAVLINK_COMMAND_24BIT
 #  include "../mavlink_get_info.h"
 # endif

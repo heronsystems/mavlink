@@ -12,7 +12,7 @@ namespace msg {
  * Command sent by a companion asset overriding any deflections set from the flight controller. The vehicle must be in the appropriate mode to support this command. It will not change modes in response to receiving this command.
  */
 struct EXECUTE_SURFACE_DEFLECTION_OVERRIDE : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 12004;
+    static constexpr msgid_t MSG_ID = 12005;
     static constexpr size_t LENGTH = 20;
     static constexpr size_t MIN_LENGTH = 20;
     static constexpr uint8_t CRC_EXTRA = 46;

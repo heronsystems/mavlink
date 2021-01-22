@@ -1,36 +1,42 @@
 #pragma once
 // MESSAGE AI_EXECUTE_PROCEDURAL PACKING
 
-#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL 12002
+#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL 12003
 
 
 typedef struct __mavlink_ai_execute_procedural_t {
+ uint8_t target_system; /*<  System which should execute the command*/
+ uint8_t target_component; /*<  Component which should execute the command, 0 for all components*/
  uint8_t procedural_type; /*<  The type of event to be performed.*/
 } mavlink_ai_execute_procedural_t;
 
-#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN 1
-#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN 1
-#define MAVLINK_MSG_ID_12002_LEN 1
-#define MAVLINK_MSG_ID_12002_MIN_LEN 1
+#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN 3
+#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN 3
+#define MAVLINK_MSG_ID_12003_LEN 3
+#define MAVLINK_MSG_ID_12003_MIN_LEN 3
 
-#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC 112
-#define MAVLINK_MSG_ID_12002_CRC 112
+#define MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC 162
+#define MAVLINK_MSG_ID_12003_CRC 162
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_AI_EXECUTE_PROCEDURAL { \
-    12002, \
+    12003, \
     "AI_EXECUTE_PROCEDURAL", \
-    1, \
-    {  { "procedural_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_ai_execute_procedural_t, procedural_type) }, \
+    3, \
+    {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_ai_execute_procedural_t, target_system) }, \
+         { "target_component", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_ai_execute_procedural_t, target_component) }, \
+         { "procedural_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_ai_execute_procedural_t, procedural_type) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_AI_EXECUTE_PROCEDURAL { \
     "AI_EXECUTE_PROCEDURAL", \
-    1, \
-    {  { "procedural_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_ai_execute_procedural_t, procedural_type) }, \
+    3, \
+    {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_ai_execute_procedural_t, target_system) }, \
+         { "target_component", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_ai_execute_procedural_t, target_component) }, \
+         { "procedural_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_ai_execute_procedural_t, procedural_type) }, \
          } \
 }
 #endif
@@ -41,19 +47,25 @@ typedef struct __mavlink_ai_execute_procedural_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
+ * @param target_system  System which should execute the command
+ * @param target_component  Component which should execute the command, 0 for all components
  * @param procedural_type  The type of event to be performed.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_ai_execute_procedural_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t procedural_type)
+                               uint8_t target_system, uint8_t target_component, uint8_t procedural_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN];
-    _mav_put_uint8_t(buf, 0, procedural_type);
+    _mav_put_uint8_t(buf, 0, target_system);
+    _mav_put_uint8_t(buf, 1, target_component);
+    _mav_put_uint8_t(buf, 2, procedural_type);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN);
 #else
     mavlink_ai_execute_procedural_t packet;
+    packet.target_system = target_system;
+    packet.target_component = target_component;
     packet.procedural_type = procedural_type;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN);
@@ -69,20 +81,26 @@ static inline uint16_t mavlink_msg_ai_execute_procedural_pack(uint8_t system_id,
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
+ * @param target_system  System which should execute the command
+ * @param target_component  Component which should execute the command, 0 for all components
  * @param procedural_type  The type of event to be performed.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_ai_execute_procedural_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t procedural_type)
+                                   uint8_t target_system,uint8_t target_component,uint8_t procedural_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN];
-    _mav_put_uint8_t(buf, 0, procedural_type);
+    _mav_put_uint8_t(buf, 0, target_system);
+    _mav_put_uint8_t(buf, 1, target_component);
+    _mav_put_uint8_t(buf, 2, procedural_type);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN);
 #else
     mavlink_ai_execute_procedural_t packet;
+    packet.target_system = target_system;
+    packet.target_component = target_component;
     packet.procedural_type = procedural_type;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN);
@@ -102,7 +120,7 @@ static inline uint16_t mavlink_msg_ai_execute_procedural_pack_chan(uint8_t syste
  */
 static inline uint16_t mavlink_msg_ai_execute_procedural_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ai_execute_procedural_t* ai_execute_procedural)
 {
-    return mavlink_msg_ai_execute_procedural_pack(system_id, component_id, msg, ai_execute_procedural->procedural_type);
+    return mavlink_msg_ai_execute_procedural_pack(system_id, component_id, msg, ai_execute_procedural->target_system, ai_execute_procedural->target_component, ai_execute_procedural->procedural_type);
 }
 
 /**
@@ -116,26 +134,32 @@ static inline uint16_t mavlink_msg_ai_execute_procedural_encode(uint8_t system_i
  */
 static inline uint16_t mavlink_msg_ai_execute_procedural_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ai_execute_procedural_t* ai_execute_procedural)
 {
-    return mavlink_msg_ai_execute_procedural_pack_chan(system_id, component_id, chan, msg, ai_execute_procedural->procedural_type);
+    return mavlink_msg_ai_execute_procedural_pack_chan(system_id, component_id, chan, msg, ai_execute_procedural->target_system, ai_execute_procedural->target_component, ai_execute_procedural->procedural_type);
 }
 
 /**
  * @brief Send a ai_execute_procedural message
  * @param chan MAVLink channel to send the message
  *
+ * @param target_system  System which should execute the command
+ * @param target_component  Component which should execute the command, 0 for all components
  * @param procedural_type  The type of event to be performed.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_ai_execute_procedural_send(mavlink_channel_t chan, uint8_t procedural_type)
+static inline void mavlink_msg_ai_execute_procedural_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint8_t procedural_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN];
-    _mav_put_uint8_t(buf, 0, procedural_type);
+    _mav_put_uint8_t(buf, 0, target_system);
+    _mav_put_uint8_t(buf, 1, target_component);
+    _mav_put_uint8_t(buf, 2, procedural_type);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL, buf, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC);
 #else
     mavlink_ai_execute_procedural_t packet;
+    packet.target_system = target_system;
+    packet.target_component = target_component;
     packet.procedural_type = procedural_type;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL, (const char *)&packet, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC);
@@ -150,7 +174,7 @@ static inline void mavlink_msg_ai_execute_procedural_send(mavlink_channel_t chan
 static inline void mavlink_msg_ai_execute_procedural_send_struct(mavlink_channel_t chan, const mavlink_ai_execute_procedural_t* ai_execute_procedural)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_ai_execute_procedural_send(chan, ai_execute_procedural->procedural_type);
+    mavlink_msg_ai_execute_procedural_send(chan, ai_execute_procedural->target_system, ai_execute_procedural->target_component, ai_execute_procedural->procedural_type);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL, (const char *)ai_execute_procedural, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC);
 #endif
@@ -164,15 +188,19 @@ static inline void mavlink_msg_ai_execute_procedural_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_ai_execute_procedural_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t procedural_type)
+static inline void mavlink_msg_ai_execute_procedural_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, uint8_t procedural_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-    _mav_put_uint8_t(buf, 0, procedural_type);
+    _mav_put_uint8_t(buf, 0, target_system);
+    _mav_put_uint8_t(buf, 1, target_component);
+    _mav_put_uint8_t(buf, 2, procedural_type);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL, buf, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC);
 #else
     mavlink_ai_execute_procedural_t *packet = (mavlink_ai_execute_procedural_t *)msgbuf;
+    packet->target_system = target_system;
+    packet->target_component = target_component;
     packet->procedural_type = procedural_type;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL, (const char *)packet, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_MIN_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN, MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_CRC);
@@ -186,13 +214,33 @@ static inline void mavlink_msg_ai_execute_procedural_send_buf(mavlink_message_t 
 
 
 /**
+ * @brief Get field target_system from ai_execute_procedural message
+ *
+ * @return  System which should execute the command
+ */
+static inline uint8_t mavlink_msg_ai_execute_procedural_get_target_system(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  0);
+}
+
+/**
+ * @brief Get field target_component from ai_execute_procedural message
+ *
+ * @return  Component which should execute the command, 0 for all components
+ */
+static inline uint8_t mavlink_msg_ai_execute_procedural_get_target_component(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  1);
+}
+
+/**
  * @brief Get field procedural_type from ai_execute_procedural message
  *
  * @return  The type of event to be performed.
  */
 static inline uint8_t mavlink_msg_ai_execute_procedural_get_procedural_type(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  0);
+    return _MAV_RETURN_uint8_t(msg,  2);
 }
 
 /**
@@ -204,6 +252,8 @@ static inline uint8_t mavlink_msg_ai_execute_procedural_get_procedural_type(cons
 static inline void mavlink_msg_ai_execute_procedural_decode(const mavlink_message_t* msg, mavlink_ai_execute_procedural_t* ai_execute_procedural)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    ai_execute_procedural->target_system = mavlink_msg_ai_execute_procedural_get_target_system(msg);
+    ai_execute_procedural->target_component = mavlink_msg_ai_execute_procedural_get_target_component(msg);
     ai_execute_procedural->procedural_type = mavlink_msg_ai_execute_procedural_get_procedural_type(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN? msg->len : MAVLINK_MSG_ID_AI_EXECUTE_PROCEDURAL_LEN;

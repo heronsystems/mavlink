@@ -12,7 +12,7 @@ namespace msg {
  * Send a spatial command telling the vehicle to manuever based on the command type.
  */
 struct EXECUTE_SPATIAL_ACTION : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 12401;
+    static constexpr msgid_t MSG_ID = 12402;
     static constexpr size_t LENGTH = 36;
     static constexpr size_t MIN_LENGTH = 36;
     static constexpr uint8_t CRC_EXTRA = 48;

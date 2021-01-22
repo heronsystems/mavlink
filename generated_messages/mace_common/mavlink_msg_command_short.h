@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE COMMAND_SHORT PACKING
 
-#define MAVLINK_MSG_ID_COMMAND_SHORT 12400
+#define MAVLINK_MSG_ID_COMMAND_SHORT 12401
 
 
 typedef struct __mavlink_command_short_t {
@@ -14,17 +14,17 @@ typedef struct __mavlink_command_short_t {
 
 #define MAVLINK_MSG_ID_COMMAND_SHORT_LEN 9
 #define MAVLINK_MSG_ID_COMMAND_SHORT_MIN_LEN 9
-#define MAVLINK_MSG_ID_12400_LEN 9
-#define MAVLINK_MSG_ID_12400_MIN_LEN 9
+#define MAVLINK_MSG_ID_12401_LEN 9
+#define MAVLINK_MSG_ID_12401_MIN_LEN 9
 
 #define MAVLINK_MSG_ID_COMMAND_SHORT_CRC 79
-#define MAVLINK_MSG_ID_12400_CRC 79
+#define MAVLINK_MSG_ID_12401_CRC 79
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_COMMAND_SHORT { \
-    12400, \
+    12401, \
     "COMMAND_SHORT", \
     5, \
     {  { "command", NULL, MAVLINK_TYPE_UINT16_T, 0, 4, offsetof(mavlink_command_short_t, command) }, \

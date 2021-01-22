@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE EXECUTE_SPATIAL_ACTION_ACK PACKING
 
-#define MAVLINK_MSG_ID_EXECUTE_SPATIAL_ACTION_ACK 12402
+#define MAVLINK_MSG_ID_EXECUTE_SPATIAL_ACTION_ACK 12403
 
 
 typedef struct __mavlink_execute_spatial_action_ack_t {
@@ -10,17 +10,17 @@ typedef struct __mavlink_execute_spatial_action_ack_t {
 
 #define MAVLINK_MSG_ID_EXECUTE_SPATIAL_ACTION_ACK_LEN 1
 #define MAVLINK_MSG_ID_EXECUTE_SPATIAL_ACTION_ACK_MIN_LEN 1
-#define MAVLINK_MSG_ID_12402_LEN 1
-#define MAVLINK_MSG_ID_12402_MIN_LEN 1
+#define MAVLINK_MSG_ID_12403_LEN 1
+#define MAVLINK_MSG_ID_12403_MIN_LEN 1
 
 #define MAVLINK_MSG_ID_EXECUTE_SPATIAL_ACTION_ACK_CRC 108
-#define MAVLINK_MSG_ID_12402_CRC 108
+#define MAVLINK_MSG_ID_12403_CRC 108
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_EXECUTE_SPATIAL_ACTION_ACK { \
-    12402, \
+    12403, \
     "EXECUTE_SPATIAL_ACTION_ACK", \
     1, \
     {  { "result", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_execute_spatial_action_ack_t, result) }, \
