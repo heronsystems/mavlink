@@ -98,36 +98,40 @@
 
   <messages>
 
-    <message id="12000" name="MACE_HEARTBEAT">
-      <description>The heartbeat message shows that a system is present and responding. The type of the MAV and Autopilot hardware allow the receiving system to treat further messages from this system appropriate (e.g. by laying out the user interface based on the autopilot).</description>
-      <field type="uint8_t" name="protocol" enum="MAV_TYPE">Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)</field>
-      <field type="uint8_t" name="type" enum="MAV_TYPE">Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)</field>
-      <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class. defined in MAV_AUTOPILOT ENUM</field>
-      <field type="uint8_t" name="vehicle_mode">The flight mode in its enumerated form. This must be cast per the type of vehicle it is.</field>
-      <field type="uint8_t" name="vehicle_armed">Boolean describing whether(T=1) or not(F=0) the vehicle is armed.</field>
-      <field type="uint8_t" name="mission_state">Defines the current state of the vehicle mission. Useful for determing the next state of the vehicle per mission state.</field>
-      <field type="uint8_t" name="mace_companion">Boolean describing whether(T=1) or not(F=0) the vehicle is MACE companion equipped.</field>
-      <field type="uint8_t_mavlink_version" name="mavlink_version">MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version</field>
-      <field type="uint8_t" name="mavlinkID"></field>
-    </message>
 
     <message id="12001" name="VEHICLE_SYNC">
       <description>This initiates a sync request to enable the receiving mace instance to begin dumping relevant data needed to reconstruct vehicles current state.</description>
       <field type="uint8_t" name="target_system">System ID</field>
     </message>
 
-    <message id="12002" name="AI_EXECUTE_PROCEDURAL">
-      <description>Generic writer enabling 3rd party software sources to </description>
+    <message id="12002" name="AI_TEST_PARAMETERIZATION">
+      <description>Structure used to transmit the current test parameterization conditions between the test host and participating unmanned systems.</description>
+      <field type="uint8_t" name="target_system">System which should execute the command</field>
+      <field type="uint8_t" name="target_component">Component which should execute the command, 0 for all components</field>
+      <field type="char[10]" name="field_file">The file name to be used for the field conditions, less the .ini file type extension.</field>
+      <field type="char[10]" name="red_file">The file name to be used for the red agent, less the .ini file type extension.</field>
+      <field type="char[10]" name="blue_file">The file name to be used for the blue agent, less the .ini file type extension.</field>
+      <field type="float" name="origin_lat">The latitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
+      <field type="float" name="origin_lng">The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
+      <field type="float" name="origin_alt">The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
+    </message>
+
+    <message id="12003" name="AI_EXECUTE_PROCEDURAL">
+      <description>Command that can dictate the conditions of the test.</description>
+      <field type="uint8_t" name="target_system">System which should execute the command</field>
+      <field type="uint8_t" name="target_component">Component which should execute the command, 0 for all components</field>
       <field type="uint8_t" name="procedural_type" enum="AI_PROCEDURAL_COMMANDS">The type of event to be performed.</field>
     </message>
 
-    <message id="12003" name="WRITE_EVENT_TO_LOG">
-      <description>Generic writer enabling 3rd party software sources to </description>
+    <message id="12004" name="WRITE_EVENT_TO_LOG">
+      <description>Generic writer enabling 3rd party software sources to write some text to the target_systems internal logging structure.</description>
+      <field type="uint8_t" name="target_system">System which should execute the command</field>
+      <field type="uint8_t" name="target_component">Component which should execute the command, 0 for all components</field>
       <field type="uint8_t" name="event_type" enum="LOGGING_EVENT_TAGS">The type of event associated with the tag information.</field>
       <field type="char[50]" name="text">User defined descriptor useful for describing the event.</field>
     </message>
 
-    <message id="12004" name="EXECUTE_SURFACE_DEFLECTION_OVERRIDE">
+    <message id="12005" name="EXECUTE_SURFACE_DEFLECTION_OVERRIDE">
       <description>Command sent by a companion asset overriding any deflections set from the flight controller. The vehicle must be in the appropriate mode to support this command. It will not change modes in response to receiving this command.</description>
       <field type="float" name="event_type">Bitmask defining the control authorities on the axis that should remain stabilized or tracking an explicit condition. This would imply we can set the aircraft on a course or attitude state that is maintained by an inner-loop control law while evaluating the other axes under AI control.</field>
       <field type="float" name="deflection_elevator">elevator_deflection: Normalized x-axis value between -1 and 1 that corresponds to the elevators of the vehicle.</field>

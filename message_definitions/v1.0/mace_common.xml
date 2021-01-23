@@ -4,7 +4,18 @@
   <dialect>0</dialect>
 
   <messages>
-    <message id="12400" name="COMMAND_SHORT">
+
+    <message id="12400" name="MACE_HEARTBEAT">
+      <description>The heartbeat message shows that a system or component is present and responding. The type and autopilot fields (along with the message component id), allow the receiving system to treat further messages from this system appropriately (e.g. by laying out the user interface based on the autopilot). This microservice is documented at https://mavlink.io/en/services/heartbeat.html</description>
+      <field type="uint8_t" name="id" enum="system_id">vehicle id associated with the heartbeat of this message.</field>
+      <field type="uint8_t" name="type" enum="MAV_TYPE">Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.</field>
+      <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.</field>
+      <field type="uint8_t" name="flight_mode">System mode.</field>
+      <field type="uint8_t" name="vehicle_hsm">System status flag.</field>
+      <field type="uint8_t_mavlink_version" name="mavlink_version">MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version</field>
+    </message>
+
+    <message id="12401" name="COMMAND_SHORT">
       <description>A short command message for those messages only requiring one parameter. Th</description>
       <field type="uint16_t" name="command" enum="MAV_CMD">Command ID, as defined by MAV_CMD enum.is was established to reduce the bandwidth required of messages not requiring as much parameterized data.</field>
       <field type="uint8_t" name="target_system">System which should execute the command</field>
@@ -13,7 +24,7 @@
       <field type="float" name="param1">Parameter as defined by MAV_CMD enum.</field>
     </message>
  
-   <message id="12401" name="EXECUTE_SPATIAL_ACTION">
+   <message id="12402" name="EXECUTE_SPATIAL_ACTION">
       <description>Send a spatial command telling the vehicle to manuever based on the command type.</description>
       <field type="uint8_t" name="target_system">System which should execute the command</field>
       <field type="uint8_t" name="target_component">Component which should execute the command, 0 for all components</field>
@@ -30,7 +41,7 @@
       <field type="float" name="param7">Parameter 7, as defined by UXV_CMD enum.</field>
     </message>
 
-    <message id="12402" name="EXECUTE_SPATIAL_ACTION_ACK">
+    <message id="12403" name="EXECUTE_SPATIAL_ACTION_ACK">
       <description>Acknowledgement of a goto command.</description>
       <field type="uint8_t" name="result" enum="UXV_RESULT">See UXV_RESULT enum</field>
     </message>
