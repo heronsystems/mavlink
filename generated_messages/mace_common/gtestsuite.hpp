@@ -22,10 +22,11 @@ TEST(mace_common, MACE_HEARTBEAT)
     mavlink::MsgMap map2(msg);
 
     mavlink::mace_common::msg::MACE_HEARTBEAT packet_in{};
-    packet_in.type = 5;
-    packet_in.autopilot = 72;
-    packet_in.flight_mode = 139;
-    packet_in.vehicle_hsm = 206;
+    packet_in.id = 5;
+    packet_in.type = 72;
+    packet_in.autopilot = 139;
+    packet_in.flight_mode = 206;
+    packet_in.vehicle_hsm = 17;
     packet_in.mavlink_version = 3;
 
     mavlink::mace_common::msg::MACE_HEARTBEAT packet1{};
@@ -41,6 +42,7 @@ TEST(mace_common, MACE_HEARTBEAT)
 
     packet2.deserialize(map2);
 
+    EXPECT_EQ(packet1.id, packet2.id);
     EXPECT_EQ(packet1.type, packet2.type);
     EXPECT_EQ(packet1.autopilot, packet2.autopilot);
     EXPECT_EQ(packet1.flight_mode, packet2.flight_mode);
@@ -57,14 +59,15 @@ TEST(mace_common_interop, MACE_HEARTBEAT)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_mace_heartbeat_t packet_c {
-         5, 72, 139, 206, 3
+         5, 72, 139, 206, 17, 3
     };
 
     mavlink::mace_common::msg::MACE_HEARTBEAT packet_in{};
-    packet_in.type = 5;
-    packet_in.autopilot = 72;
-    packet_in.flight_mode = 139;
-    packet_in.vehicle_hsm = 206;
+    packet_in.id = 5;
+    packet_in.type = 72;
+    packet_in.autopilot = 139;
+    packet_in.flight_mode = 206;
+    packet_in.vehicle_hsm = 17;
     packet_in.mavlink_version = 3;
 
     mavlink::mace_common::msg::MACE_HEARTBEAT packet2{};
@@ -78,6 +81,7 @@ TEST(mace_common_interop, MACE_HEARTBEAT)
         packet2.deserialize(map2);
     } (&msg);
 
+    EXPECT_EQ(packet_in.id, packet2.id);
     EXPECT_EQ(packet_in.type, packet2.type);
     EXPECT_EQ(packet_in.autopilot, packet2.autopilot);
     EXPECT_EQ(packet_in.flight_mode, packet2.flight_mode);
