@@ -5,7 +5,7 @@
 
 
 typedef struct __mavlink_mace_heartbeat_t {
- uint8_t system_id; /*<  vehicle id associated with the heartbeat of this message.*/
+ uint8_t vehicle_id; /*<  vehicle id associated with the heartbeat of this message.*/
  uint8_t type; /*<  Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.*/
  uint8_t autopilot; /*<  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.*/
  uint8_t flight_mode; /*<  System mode.*/
@@ -18,8 +18,8 @@ typedef struct __mavlink_mace_heartbeat_t {
 #define MAVLINK_MSG_ID_12400_LEN 6
 #define MAVLINK_MSG_ID_12400_MIN_LEN 6
 
-#define MAVLINK_MSG_ID_MACE_HEARTBEAT_CRC 218
-#define MAVLINK_MSG_ID_12400_CRC 218
+#define MAVLINK_MSG_ID_MACE_HEARTBEAT_CRC 4
+#define MAVLINK_MSG_ID_12400_CRC 4
 
 
 
@@ -28,7 +28,7 @@ typedef struct __mavlink_mace_heartbeat_t {
     12400, \
     "MACE_HEARTBEAT", \
     6, \
-    {  { "system_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_mace_heartbeat_t, system_id) }, \
+    {  { "vehicle_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_mace_heartbeat_t, vehicle_id) }, \
          { "type", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_mace_heartbeat_t, type) }, \
          { "autopilot", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_mace_heartbeat_t, autopilot) }, \
          { "flight_mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 3, offsetof(mavlink_mace_heartbeat_t, flight_mode) }, \
@@ -40,7 +40,7 @@ typedef struct __mavlink_mace_heartbeat_t {
 #define MAVLINK_MESSAGE_INFO_MACE_HEARTBEAT { \
     "MACE_HEARTBEAT", \
     6, \
-    {  { "system_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_mace_heartbeat_t, system_id) }, \
+    {  { "vehicle_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_mace_heartbeat_t, vehicle_id) }, \
          { "type", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_mace_heartbeat_t, type) }, \
          { "autopilot", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_mace_heartbeat_t, autopilot) }, \
          { "flight_mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 3, offsetof(mavlink_mace_heartbeat_t, flight_mode) }, \
@@ -56,7 +56,7 @@ typedef struct __mavlink_mace_heartbeat_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param system_id  vehicle id associated with the heartbeat of this message.
+ * @param vehicle_id  vehicle id associated with the heartbeat of this message.
  * @param type  Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.
  * @param autopilot  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.
  * @param flight_mode  System mode.
@@ -64,11 +64,11 @@ typedef struct __mavlink_mace_heartbeat_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_mace_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t system_id, uint8_t type, uint8_t autopilot, uint8_t flight_mode, uint8_t vehicle_hsm)
+                               uint8_t vehicle_id, uint8_t type, uint8_t autopilot, uint8_t flight_mode, uint8_t vehicle_hsm)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN];
-    _mav_put_uint8_t(buf, 0, system_id);
+    _mav_put_uint8_t(buf, 0, vehicle_id);
     _mav_put_uint8_t(buf, 1, type);
     _mav_put_uint8_t(buf, 2, autopilot);
     _mav_put_uint8_t(buf, 3, flight_mode);
@@ -78,7 +78,7 @@ static inline uint16_t mavlink_msg_mace_heartbeat_pack(uint8_t system_id, uint8_
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN);
 #else
     mavlink_mace_heartbeat_t packet;
-    packet.system_id = system_id;
+    packet.vehicle_id = vehicle_id;
     packet.type = type;
     packet.autopilot = autopilot;
     packet.flight_mode = flight_mode;
@@ -98,7 +98,7 @@ static inline uint16_t mavlink_msg_mace_heartbeat_pack(uint8_t system_id, uint8_
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param system_id  vehicle id associated with the heartbeat of this message.
+ * @param vehicle_id  vehicle id associated with the heartbeat of this message.
  * @param type  Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.
  * @param autopilot  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.
  * @param flight_mode  System mode.
@@ -107,11 +107,11 @@ static inline uint16_t mavlink_msg_mace_heartbeat_pack(uint8_t system_id, uint8_
  */
 static inline uint16_t mavlink_msg_mace_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t system_id,uint8_t type,uint8_t autopilot,uint8_t flight_mode,uint8_t vehicle_hsm)
+                                   uint8_t vehicle_id,uint8_t type,uint8_t autopilot,uint8_t flight_mode,uint8_t vehicle_hsm)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN];
-    _mav_put_uint8_t(buf, 0, system_id);
+    _mav_put_uint8_t(buf, 0, vehicle_id);
     _mav_put_uint8_t(buf, 1, type);
     _mav_put_uint8_t(buf, 2, autopilot);
     _mav_put_uint8_t(buf, 3, flight_mode);
@@ -121,7 +121,7 @@ static inline uint16_t mavlink_msg_mace_heartbeat_pack_chan(uint8_t system_id, u
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN);
 #else
     mavlink_mace_heartbeat_t packet;
-    packet.system_id = system_id;
+    packet.vehicle_id = vehicle_id;
     packet.type = type;
     packet.autopilot = autopilot;
     packet.flight_mode = flight_mode;
@@ -145,7 +145,7 @@ static inline uint16_t mavlink_msg_mace_heartbeat_pack_chan(uint8_t system_id, u
  */
 static inline uint16_t mavlink_msg_mace_heartbeat_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mace_heartbeat_t* mace_heartbeat)
 {
-    return mavlink_msg_mace_heartbeat_pack(system_id, component_id, msg, mace_heartbeat->system_id, mace_heartbeat->type, mace_heartbeat->autopilot, mace_heartbeat->flight_mode, mace_heartbeat->vehicle_hsm);
+    return mavlink_msg_mace_heartbeat_pack(system_id, component_id, msg, mace_heartbeat->vehicle_id, mace_heartbeat->type, mace_heartbeat->autopilot, mace_heartbeat->flight_mode, mace_heartbeat->vehicle_hsm);
 }
 
 /**
@@ -159,14 +159,14 @@ static inline uint16_t mavlink_msg_mace_heartbeat_encode(uint8_t system_id, uint
  */
 static inline uint16_t mavlink_msg_mace_heartbeat_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mace_heartbeat_t* mace_heartbeat)
 {
-    return mavlink_msg_mace_heartbeat_pack_chan(system_id, component_id, chan, msg, mace_heartbeat->system_id, mace_heartbeat->type, mace_heartbeat->autopilot, mace_heartbeat->flight_mode, mace_heartbeat->vehicle_hsm);
+    return mavlink_msg_mace_heartbeat_pack_chan(system_id, component_id, chan, msg, mace_heartbeat->vehicle_id, mace_heartbeat->type, mace_heartbeat->autopilot, mace_heartbeat->flight_mode, mace_heartbeat->vehicle_hsm);
 }
 
 /**
  * @brief Send a mace_heartbeat message
  * @param chan MAVLink channel to send the message
  *
- * @param system_id  vehicle id associated with the heartbeat of this message.
+ * @param vehicle_id  vehicle id associated with the heartbeat of this message.
  * @param type  Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.
  * @param autopilot  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.
  * @param flight_mode  System mode.
@@ -174,11 +174,11 @@ static inline uint16_t mavlink_msg_mace_heartbeat_encode_chan(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_mace_heartbeat_send(mavlink_channel_t chan, uint8_t system_id, uint8_t type, uint8_t autopilot, uint8_t flight_mode, uint8_t vehicle_hsm)
+static inline void mavlink_msg_mace_heartbeat_send(mavlink_channel_t chan, uint8_t vehicle_id, uint8_t type, uint8_t autopilot, uint8_t flight_mode, uint8_t vehicle_hsm)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN];
-    _mav_put_uint8_t(buf, 0, system_id);
+    _mav_put_uint8_t(buf, 0, vehicle_id);
     _mav_put_uint8_t(buf, 1, type);
     _mav_put_uint8_t(buf, 2, autopilot);
     _mav_put_uint8_t(buf, 3, flight_mode);
@@ -188,7 +188,7 @@ static inline void mavlink_msg_mace_heartbeat_send(mavlink_channel_t chan, uint8
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_MACE_HEARTBEAT, buf, MAVLINK_MSG_ID_MACE_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN, MAVLINK_MSG_ID_MACE_HEARTBEAT_CRC);
 #else
     mavlink_mace_heartbeat_t packet;
-    packet.system_id = system_id;
+    packet.vehicle_id = vehicle_id;
     packet.type = type;
     packet.autopilot = autopilot;
     packet.flight_mode = flight_mode;
@@ -207,7 +207,7 @@ static inline void mavlink_msg_mace_heartbeat_send(mavlink_channel_t chan, uint8
 static inline void mavlink_msg_mace_heartbeat_send_struct(mavlink_channel_t chan, const mavlink_mace_heartbeat_t* mace_heartbeat)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_mace_heartbeat_send(chan, mace_heartbeat->system_id, mace_heartbeat->type, mace_heartbeat->autopilot, mace_heartbeat->flight_mode, mace_heartbeat->vehicle_hsm);
+    mavlink_msg_mace_heartbeat_send(chan, mace_heartbeat->vehicle_id, mace_heartbeat->type, mace_heartbeat->autopilot, mace_heartbeat->flight_mode, mace_heartbeat->vehicle_hsm);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_MACE_HEARTBEAT, (const char *)mace_heartbeat, MAVLINK_MSG_ID_MACE_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN, MAVLINK_MSG_ID_MACE_HEARTBEAT_CRC);
 #endif
@@ -221,11 +221,11 @@ static inline void mavlink_msg_mace_heartbeat_send_struct(mavlink_channel_t chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_mace_heartbeat_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t system_id, uint8_t type, uint8_t autopilot, uint8_t flight_mode, uint8_t vehicle_hsm)
+static inline void mavlink_msg_mace_heartbeat_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t vehicle_id, uint8_t type, uint8_t autopilot, uint8_t flight_mode, uint8_t vehicle_hsm)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-    _mav_put_uint8_t(buf, 0, system_id);
+    _mav_put_uint8_t(buf, 0, vehicle_id);
     _mav_put_uint8_t(buf, 1, type);
     _mav_put_uint8_t(buf, 2, autopilot);
     _mav_put_uint8_t(buf, 3, flight_mode);
@@ -235,7 +235,7 @@ static inline void mavlink_msg_mace_heartbeat_send_buf(mavlink_message_t *msgbuf
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_MACE_HEARTBEAT, buf, MAVLINK_MSG_ID_MACE_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_MACE_HEARTBEAT_LEN, MAVLINK_MSG_ID_MACE_HEARTBEAT_CRC);
 #else
     mavlink_mace_heartbeat_t *packet = (mavlink_mace_heartbeat_t *)msgbuf;
-    packet->system_id = system_id;
+    packet->vehicle_id = vehicle_id;
     packet->type = type;
     packet->autopilot = autopilot;
     packet->flight_mode = flight_mode;
@@ -253,11 +253,11 @@ static inline void mavlink_msg_mace_heartbeat_send_buf(mavlink_message_t *msgbuf
 
 
 /**
- * @brief Get field system_id from mace_heartbeat message
+ * @brief Get field vehicle_id from mace_heartbeat message
  *
  * @return  vehicle id associated with the heartbeat of this message.
  */
-static inline uint8_t mavlink_msg_mace_heartbeat_get_system_id(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_mace_heartbeat_get_vehicle_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
 }
@@ -321,7 +321,7 @@ static inline uint8_t mavlink_msg_mace_heartbeat_get_mavlink_version(const mavli
 static inline void mavlink_msg_mace_heartbeat_decode(const mavlink_message_t* msg, mavlink_mace_heartbeat_t* mace_heartbeat)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mace_heartbeat->system_id = mavlink_msg_mace_heartbeat_get_system_id(msg);
+    mace_heartbeat->vehicle_id = mavlink_msg_mace_heartbeat_get_vehicle_id(msg);
     mace_heartbeat->type = mavlink_msg_mace_heartbeat_get_type(msg);
     mace_heartbeat->autopilot = mavlink_msg_mace_heartbeat_get_autopilot(msg);
     mace_heartbeat->flight_mode = mavlink_msg_mace_heartbeat_get_flight_mode(msg);
