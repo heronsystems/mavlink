@@ -22,7 +22,7 @@ TEST(mace_common, MACE_HEARTBEAT)
     mavlink::MsgMap map2(msg);
 
     mavlink::mace_common::msg::MACE_HEARTBEAT packet_in{};
-    packet_in.id = 5;
+    packet_in.system_id = 5;
     packet_in.type = 72;
     packet_in.autopilot = 139;
     packet_in.flight_mode = 206;
@@ -42,7 +42,7 @@ TEST(mace_common, MACE_HEARTBEAT)
 
     packet2.deserialize(map2);
 
-    EXPECT_EQ(packet1.id, packet2.id);
+    EXPECT_EQ(packet1.system_id, packet2.system_id);
     EXPECT_EQ(packet1.type, packet2.type);
     EXPECT_EQ(packet1.autopilot, packet2.autopilot);
     EXPECT_EQ(packet1.flight_mode, packet2.flight_mode);
@@ -63,7 +63,7 @@ TEST(mace_common_interop, MACE_HEARTBEAT)
     };
 
     mavlink::mace_common::msg::MACE_HEARTBEAT packet_in{};
-    packet_in.id = 5;
+    packet_in.system_id = 5;
     packet_in.type = 72;
     packet_in.autopilot = 139;
     packet_in.flight_mode = 206;
@@ -81,7 +81,7 @@ TEST(mace_common_interop, MACE_HEARTBEAT)
         packet2.deserialize(map2);
     } (&msg);
 
-    EXPECT_EQ(packet_in.id, packet2.id);
+    EXPECT_EQ(packet_in.system_id, packet2.system_id);
     EXPECT_EQ(packet_in.type, packet2.type);
     EXPECT_EQ(packet_in.autopilot, packet2.autopilot);
     EXPECT_EQ(packet_in.flight_mode, packet2.flight_mode);

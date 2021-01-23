@@ -15,11 +15,11 @@ struct MACE_HEARTBEAT : mavlink::Message {
     static constexpr msgid_t MSG_ID = 12400;
     static constexpr size_t LENGTH = 6;
     static constexpr size_t MIN_LENGTH = 6;
-    static constexpr uint8_t CRC_EXTRA = 44;
+    static constexpr uint8_t CRC_EXTRA = 218;
     static constexpr auto NAME = "MACE_HEARTBEAT";
 
 
-    uint8_t id; /*<  vehicle id associated with the heartbeat of this message. */
+    uint8_t system_id; /*<  vehicle id associated with the heartbeat of this message. */
     uint8_t type; /*<  Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type. */
     uint8_t autopilot; /*<  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers. */
     uint8_t flight_mode; /*<  System mode. */
@@ -42,7 +42,7 @@ struct MACE_HEARTBEAT : mavlink::Message {
         std::stringstream ss;
 
         ss << NAME << ":" << std::endl;
-        ss << "  id: " << +id << std::endl;
+        ss << "  system_id: " << +system_id << std::endl;
         ss << "  type: " << +type << std::endl;
         ss << "  autopilot: " << +autopilot << std::endl;
         ss << "  flight_mode: " << +flight_mode << std::endl;
@@ -56,7 +56,7 @@ struct MACE_HEARTBEAT : mavlink::Message {
     {
         map.reset(MSG_ID, LENGTH);
 
-        map << id;                            // offset: 0
+        map << system_id;                     // offset: 0
         map << type;                          // offset: 1
         map << autopilot;                     // offset: 2
         map << flight_mode;                   // offset: 3
@@ -66,7 +66,7 @@ struct MACE_HEARTBEAT : mavlink::Message {
 
     inline void deserialize(mavlink::MsgMap &map) override
     {
-        map >> id;                            // offset: 0
+        map >> system_id;                     // offset: 0
         map >> type;                          // offset: 1
         map >> autopilot;                     // offset: 2
         map >> flight_mode;                   // offset: 3
