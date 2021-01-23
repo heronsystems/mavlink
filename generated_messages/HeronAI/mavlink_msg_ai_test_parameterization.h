@@ -10,33 +10,36 @@ typedef struct __mavlink_ai_test_parameterization_t {
  float origin_alt; /*<  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.*/
  uint8_t target_system; /*<  System which should execute the command*/
  uint8_t target_component; /*<  Component which should execute the command, 0 for all components*/
- char field_file[10]; /*<  The file name to be used for the field conditions, less the .ini file type extension.*/
- char red_file[10]; /*<  The file name to be used for the red agent, less the .ini file type extension.*/
- char blue_file[10]; /*<  The file name to be used for the blue agent, less the .ini file type extension.*/
+ char field_file[14]; /*<  The file name to be used for the field conditions, less the .ini file type extension.*/
+ char file_one[14]; /*<  The file name to be used for the red agent, less the .ini file type extension.*/
+ char file_two[14]; /*<  The file name to be used for the blue agent, less the .ini file type extension.*/
+ char tc_file[14]; /*<  The file name to be used for the test conditions, less the .ini file type extension.*/
 } mavlink_ai_test_parameterization_t;
 
-#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN 44
-#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN 44
-#define MAVLINK_MSG_ID_12002_LEN 44
-#define MAVLINK_MSG_ID_12002_MIN_LEN 44
+#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN 70
+#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN 70
+#define MAVLINK_MSG_ID_12002_LEN 70
+#define MAVLINK_MSG_ID_12002_MIN_LEN 70
 
-#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC 35
-#define MAVLINK_MSG_ID_12002_CRC 35
+#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC 155
+#define MAVLINK_MSG_ID_12002_CRC 155
 
-#define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_FIELD_FILE_LEN 10
-#define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_RED_FILE_LEN 10
-#define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_BLUE_FILE_LEN 10
+#define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_FIELD_FILE_LEN 14
+#define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_FILE_ONE_LEN 14
+#define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_FILE_TWO_LEN 14
+#define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_TC_FILE_LEN 14
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_AI_TEST_PARAMETERIZATION { \
     12002, \
     "AI_TEST_PARAMETERIZATION", \
-    8, \
+    9, \
     {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 12, offsetof(mavlink_ai_test_parameterization_t, target_system) }, \
          { "target_component", NULL, MAVLINK_TYPE_UINT8_T, 0, 13, offsetof(mavlink_ai_test_parameterization_t, target_component) }, \
-         { "field_file", NULL, MAVLINK_TYPE_CHAR, 10, 14, offsetof(mavlink_ai_test_parameterization_t, field_file) }, \
-         { "red_file", NULL, MAVLINK_TYPE_CHAR, 10, 24, offsetof(mavlink_ai_test_parameterization_t, red_file) }, \
-         { "blue_file", NULL, MAVLINK_TYPE_CHAR, 10, 34, offsetof(mavlink_ai_test_parameterization_t, blue_file) }, \
+         { "field_file", NULL, MAVLINK_TYPE_CHAR, 14, 14, offsetof(mavlink_ai_test_parameterization_t, field_file) }, \
+         { "file_one", NULL, MAVLINK_TYPE_CHAR, 14, 28, offsetof(mavlink_ai_test_parameterization_t, file_one) }, \
+         { "file_two", NULL, MAVLINK_TYPE_CHAR, 14, 42, offsetof(mavlink_ai_test_parameterization_t, file_two) }, \
+         { "tc_file", NULL, MAVLINK_TYPE_CHAR, 14, 56, offsetof(mavlink_ai_test_parameterization_t, tc_file) }, \
          { "origin_lat", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_ai_test_parameterization_t, origin_lat) }, \
          { "origin_lng", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_ai_test_parameterization_t, origin_lng) }, \
          { "origin_alt", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_ai_test_parameterization_t, origin_alt) }, \
@@ -45,12 +48,13 @@ typedef struct __mavlink_ai_test_parameterization_t {
 #else
 #define MAVLINK_MESSAGE_INFO_AI_TEST_PARAMETERIZATION { \
     "AI_TEST_PARAMETERIZATION", \
-    8, \
+    9, \
     {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 12, offsetof(mavlink_ai_test_parameterization_t, target_system) }, \
          { "target_component", NULL, MAVLINK_TYPE_UINT8_T, 0, 13, offsetof(mavlink_ai_test_parameterization_t, target_component) }, \
-         { "field_file", NULL, MAVLINK_TYPE_CHAR, 10, 14, offsetof(mavlink_ai_test_parameterization_t, field_file) }, \
-         { "red_file", NULL, MAVLINK_TYPE_CHAR, 10, 24, offsetof(mavlink_ai_test_parameterization_t, red_file) }, \
-         { "blue_file", NULL, MAVLINK_TYPE_CHAR, 10, 34, offsetof(mavlink_ai_test_parameterization_t, blue_file) }, \
+         { "field_file", NULL, MAVLINK_TYPE_CHAR, 14, 14, offsetof(mavlink_ai_test_parameterization_t, field_file) }, \
+         { "file_one", NULL, MAVLINK_TYPE_CHAR, 14, 28, offsetof(mavlink_ai_test_parameterization_t, file_one) }, \
+         { "file_two", NULL, MAVLINK_TYPE_CHAR, 14, 42, offsetof(mavlink_ai_test_parameterization_t, file_two) }, \
+         { "tc_file", NULL, MAVLINK_TYPE_CHAR, 14, 56, offsetof(mavlink_ai_test_parameterization_t, tc_file) }, \
          { "origin_lat", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_ai_test_parameterization_t, origin_lat) }, \
          { "origin_lng", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_ai_test_parameterization_t, origin_lng) }, \
          { "origin_alt", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_ai_test_parameterization_t, origin_alt) }, \
@@ -67,15 +71,16 @@ typedef struct __mavlink_ai_test_parameterization_t {
  * @param target_system  System which should execute the command
  * @param target_component  Component which should execute the command, 0 for all components
  * @param field_file  The file name to be used for the field conditions, less the .ini file type extension.
- * @param red_file  The file name to be used for the red agent, less the .ini file type extension.
- * @param blue_file  The file name to be used for the blue agent, less the .ini file type extension.
+ * @param file_one  The file name to be used for the red agent, less the .ini file type extension.
+ * @param file_two  The file name to be used for the blue agent, less the .ini file type extension.
+ * @param tc_file  The file name to be used for the test conditions, less the .ini file type extension.
  * @param origin_lat  The latitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_lng  The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_alt  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const char *field_file, const char *red_file, const char *blue_file, float origin_lat, float origin_lng, float origin_alt)
+                               uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN];
@@ -84,9 +89,10 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_
     _mav_put_float(buf, 8, origin_alt);
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
-    _mav_put_char_array(buf, 14, field_file, 10);
-    _mav_put_char_array(buf, 24, red_file, 10);
-    _mav_put_char_array(buf, 34, blue_file, 10);
+    _mav_put_char_array(buf, 14, field_file, 14);
+    _mav_put_char_array(buf, 28, file_one, 14);
+    _mav_put_char_array(buf, 42, file_two, 14);
+    _mav_put_char_array(buf, 56, tc_file, 14);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN);
 #else
     mavlink_ai_test_parameterization_t packet;
@@ -95,9 +101,10 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_
     packet.origin_alt = origin_alt;
     packet.target_system = target_system;
     packet.target_component = target_component;
-    mav_array_memcpy(packet.field_file, field_file, sizeof(char)*10);
-    mav_array_memcpy(packet.red_file, red_file, sizeof(char)*10);
-    mav_array_memcpy(packet.blue_file, blue_file, sizeof(char)*10);
+    mav_array_memcpy(packet.field_file, field_file, sizeof(char)*14);
+    mav_array_memcpy(packet.file_one, file_one, sizeof(char)*14);
+    mav_array_memcpy(packet.file_two, file_two, sizeof(char)*14);
+    mav_array_memcpy(packet.tc_file, tc_file, sizeof(char)*14);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN);
 #endif
 
@@ -114,8 +121,9 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_
  * @param target_system  System which should execute the command
  * @param target_component  Component which should execute the command, 0 for all components
  * @param field_file  The file name to be used for the field conditions, less the .ini file type extension.
- * @param red_file  The file name to be used for the red agent, less the .ini file type extension.
- * @param blue_file  The file name to be used for the blue agent, less the .ini file type extension.
+ * @param file_one  The file name to be used for the red agent, less the .ini file type extension.
+ * @param file_two  The file name to be used for the blue agent, less the .ini file type extension.
+ * @param tc_file  The file name to be used for the test conditions, less the .ini file type extension.
  * @param origin_lat  The latitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_lng  The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_alt  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
@@ -123,7 +131,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,const char *field_file,const char *red_file,const char *blue_file,float origin_lat,float origin_lng,float origin_alt)
+                                   uint8_t target_system,uint8_t target_component,const char *field_file,const char *file_one,const char *file_two,const char *tc_file,float origin_lat,float origin_lng,float origin_alt)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN];
@@ -132,9 +140,10 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t sy
     _mav_put_float(buf, 8, origin_alt);
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
-    _mav_put_char_array(buf, 14, field_file, 10);
-    _mav_put_char_array(buf, 24, red_file, 10);
-    _mav_put_char_array(buf, 34, blue_file, 10);
+    _mav_put_char_array(buf, 14, field_file, 14);
+    _mav_put_char_array(buf, 28, file_one, 14);
+    _mav_put_char_array(buf, 42, file_two, 14);
+    _mav_put_char_array(buf, 56, tc_file, 14);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN);
 #else
     mavlink_ai_test_parameterization_t packet;
@@ -143,9 +152,10 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t sy
     packet.origin_alt = origin_alt;
     packet.target_system = target_system;
     packet.target_component = target_component;
-    mav_array_memcpy(packet.field_file, field_file, sizeof(char)*10);
-    mav_array_memcpy(packet.red_file, red_file, sizeof(char)*10);
-    mav_array_memcpy(packet.blue_file, blue_file, sizeof(char)*10);
+    mav_array_memcpy(packet.field_file, field_file, sizeof(char)*14);
+    mav_array_memcpy(packet.file_one, file_one, sizeof(char)*14);
+    mav_array_memcpy(packet.file_two, file_two, sizeof(char)*14);
+    mav_array_memcpy(packet.tc_file, tc_file, sizeof(char)*14);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN);
 #endif
 
@@ -163,7 +173,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t sy
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ai_test_parameterization_t* ai_test_parameterization)
 {
-    return mavlink_msg_ai_test_parameterization_pack(system_id, component_id, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->red_file, ai_test_parameterization->blue_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt);
+    return mavlink_msg_ai_test_parameterization_pack(system_id, component_id, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt);
 }
 
 /**
@@ -177,7 +187,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_encode(uint8_t syste
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ai_test_parameterization_t* ai_test_parameterization)
 {
-    return mavlink_msg_ai_test_parameterization_pack_chan(system_id, component_id, chan, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->red_file, ai_test_parameterization->blue_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt);
+    return mavlink_msg_ai_test_parameterization_pack_chan(system_id, component_id, chan, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt);
 }
 
 /**
@@ -187,15 +197,16 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_encode_chan(uint8_t 
  * @param target_system  System which should execute the command
  * @param target_component  Component which should execute the command, 0 for all components
  * @param field_file  The file name to be used for the field conditions, less the .ini file type extension.
- * @param red_file  The file name to be used for the red agent, less the .ini file type extension.
- * @param blue_file  The file name to be used for the blue agent, less the .ini file type extension.
+ * @param file_one  The file name to be used for the red agent, less the .ini file type extension.
+ * @param file_two  The file name to be used for the blue agent, less the .ini file type extension.
+ * @param tc_file  The file name to be used for the test conditions, less the .ini file type extension.
  * @param origin_lat  The latitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_lng  The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_alt  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char *field_file, const char *red_file, const char *blue_file, float origin_lat, float origin_lng, float origin_alt)
+static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN];
@@ -204,9 +215,10 @@ static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t c
     _mav_put_float(buf, 8, origin_alt);
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
-    _mav_put_char_array(buf, 14, field_file, 10);
-    _mav_put_char_array(buf, 24, red_file, 10);
-    _mav_put_char_array(buf, 34, blue_file, 10);
+    _mav_put_char_array(buf, 14, field_file, 14);
+    _mav_put_char_array(buf, 28, file_one, 14);
+    _mav_put_char_array(buf, 42, file_two, 14);
+    _mav_put_char_array(buf, 56, tc_file, 14);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION, buf, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC);
 #else
     mavlink_ai_test_parameterization_t packet;
@@ -215,9 +227,10 @@ static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t c
     packet.origin_alt = origin_alt;
     packet.target_system = target_system;
     packet.target_component = target_component;
-    mav_array_memcpy(packet.field_file, field_file, sizeof(char)*10);
-    mav_array_memcpy(packet.red_file, red_file, sizeof(char)*10);
-    mav_array_memcpy(packet.blue_file, blue_file, sizeof(char)*10);
+    mav_array_memcpy(packet.field_file, field_file, sizeof(char)*14);
+    mav_array_memcpy(packet.file_one, file_one, sizeof(char)*14);
+    mav_array_memcpy(packet.file_two, file_two, sizeof(char)*14);
+    mav_array_memcpy(packet.tc_file, tc_file, sizeof(char)*14);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION, (const char *)&packet, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC);
 #endif
 }
@@ -230,7 +243,7 @@ static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t c
 static inline void mavlink_msg_ai_test_parameterization_send_struct(mavlink_channel_t chan, const mavlink_ai_test_parameterization_t* ai_test_parameterization)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_ai_test_parameterization_send(chan, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->red_file, ai_test_parameterization->blue_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt);
+    mavlink_msg_ai_test_parameterization_send(chan, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION, (const char *)ai_test_parameterization, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC);
 #endif
@@ -244,7 +257,7 @@ static inline void mavlink_msg_ai_test_parameterization_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const char *field_file, const char *red_file, const char *blue_file, float origin_lat, float origin_lng, float origin_alt)
+static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -253,9 +266,10 @@ static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message
     _mav_put_float(buf, 8, origin_alt);
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
-    _mav_put_char_array(buf, 14, field_file, 10);
-    _mav_put_char_array(buf, 24, red_file, 10);
-    _mav_put_char_array(buf, 34, blue_file, 10);
+    _mav_put_char_array(buf, 14, field_file, 14);
+    _mav_put_char_array(buf, 28, file_one, 14);
+    _mav_put_char_array(buf, 42, file_two, 14);
+    _mav_put_char_array(buf, 56, tc_file, 14);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION, buf, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC);
 #else
     mavlink_ai_test_parameterization_t *packet = (mavlink_ai_test_parameterization_t *)msgbuf;
@@ -264,9 +278,10 @@ static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message
     packet->origin_alt = origin_alt;
     packet->target_system = target_system;
     packet->target_component = target_component;
-    mav_array_memcpy(packet->field_file, field_file, sizeof(char)*10);
-    mav_array_memcpy(packet->red_file, red_file, sizeof(char)*10);
-    mav_array_memcpy(packet->blue_file, blue_file, sizeof(char)*10);
+    mav_array_memcpy(packet->field_file, field_file, sizeof(char)*14);
+    mav_array_memcpy(packet->file_one, file_one, sizeof(char)*14);
+    mav_array_memcpy(packet->file_two, file_two, sizeof(char)*14);
+    mav_array_memcpy(packet->tc_file, tc_file, sizeof(char)*14);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION, (const char *)packet, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC);
 #endif
 }
@@ -304,27 +319,37 @@ static inline uint8_t mavlink_msg_ai_test_parameterization_get_target_component(
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_get_field_file(const mavlink_message_t* msg, char *field_file)
 {
-    return _MAV_RETURN_char_array(msg, field_file, 10,  14);
+    return _MAV_RETURN_char_array(msg, field_file, 14,  14);
 }
 
 /**
- * @brief Get field red_file from ai_test_parameterization message
+ * @brief Get field file_one from ai_test_parameterization message
  *
  * @return  The file name to be used for the red agent, less the .ini file type extension.
  */
-static inline uint16_t mavlink_msg_ai_test_parameterization_get_red_file(const mavlink_message_t* msg, char *red_file)
+static inline uint16_t mavlink_msg_ai_test_parameterization_get_file_one(const mavlink_message_t* msg, char *file_one)
 {
-    return _MAV_RETURN_char_array(msg, red_file, 10,  24);
+    return _MAV_RETURN_char_array(msg, file_one, 14,  28);
 }
 
 /**
- * @brief Get field blue_file from ai_test_parameterization message
+ * @brief Get field file_two from ai_test_parameterization message
  *
  * @return  The file name to be used for the blue agent, less the .ini file type extension.
  */
-static inline uint16_t mavlink_msg_ai_test_parameterization_get_blue_file(const mavlink_message_t* msg, char *blue_file)
+static inline uint16_t mavlink_msg_ai_test_parameterization_get_file_two(const mavlink_message_t* msg, char *file_two)
 {
-    return _MAV_RETURN_char_array(msg, blue_file, 10,  34);
+    return _MAV_RETURN_char_array(msg, file_two, 14,  42);
+}
+
+/**
+ * @brief Get field tc_file from ai_test_parameterization message
+ *
+ * @return  The file name to be used for the test conditions, less the .ini file type extension.
+ */
+static inline uint16_t mavlink_msg_ai_test_parameterization_get_tc_file(const mavlink_message_t* msg, char *tc_file)
+{
+    return _MAV_RETURN_char_array(msg, tc_file, 14,  56);
 }
 
 /**
@@ -372,8 +397,9 @@ static inline void mavlink_msg_ai_test_parameterization_decode(const mavlink_mes
     ai_test_parameterization->target_system = mavlink_msg_ai_test_parameterization_get_target_system(msg);
     ai_test_parameterization->target_component = mavlink_msg_ai_test_parameterization_get_target_component(msg);
     mavlink_msg_ai_test_parameterization_get_field_file(msg, ai_test_parameterization->field_file);
-    mavlink_msg_ai_test_parameterization_get_red_file(msg, ai_test_parameterization->red_file);
-    mavlink_msg_ai_test_parameterization_get_blue_file(msg, ai_test_parameterization->blue_file);
+    mavlink_msg_ai_test_parameterization_get_file_one(msg, ai_test_parameterization->file_one);
+    mavlink_msg_ai_test_parameterization_get_file_two(msg, ai_test_parameterization->file_two);
+    mavlink_msg_ai_test_parameterization_get_tc_file(msg, ai_test_parameterization->tc_file);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN? msg->len : MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN;
         memset(ai_test_parameterization, 0, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN);

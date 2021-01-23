@@ -83,9 +83,10 @@ TEST(HeronAI, AI_TEST_PARAMETERIZATION)
     mavlink::HeronAI::msg::AI_TEST_PARAMETERIZATION packet_in{};
     packet_in.target_system = 41;
     packet_in.target_component = 108;
-    packet_in.field_file = to_char_array("OPQRSTUVW");
-    packet_in.red_file = to_char_array("YZABCDEFG");
-    packet_in.blue_file = to_char_array("IJKLMNOPQ");
+    packet_in.field_file = to_char_array("OPQRSTUVWXYZA");
+    packet_in.file_one = to_char_array("CDEFGHIJKLMNO");
+    packet_in.file_two = to_char_array("QRSTUVWXYZABC");
+    packet_in.tc_file = to_char_array("EFGHIJKLMNOPQ");
     packet_in.origin_lat = 17.0;
     packet_in.origin_lng = 45.0;
     packet_in.origin_alt = 73.0;
@@ -106,8 +107,9 @@ TEST(HeronAI, AI_TEST_PARAMETERIZATION)
     EXPECT_EQ(packet1.target_system, packet2.target_system);
     EXPECT_EQ(packet1.target_component, packet2.target_component);
     EXPECT_EQ(packet1.field_file, packet2.field_file);
-    EXPECT_EQ(packet1.red_file, packet2.red_file);
-    EXPECT_EQ(packet1.blue_file, packet2.blue_file);
+    EXPECT_EQ(packet1.file_one, packet2.file_one);
+    EXPECT_EQ(packet1.file_two, packet2.file_two);
+    EXPECT_EQ(packet1.tc_file, packet2.tc_file);
     EXPECT_EQ(packet1.origin_lat, packet2.origin_lat);
     EXPECT_EQ(packet1.origin_lng, packet2.origin_lng);
     EXPECT_EQ(packet1.origin_alt, packet2.origin_alt);
@@ -122,15 +124,16 @@ TEST(HeronAI_interop, AI_TEST_PARAMETERIZATION)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_ai_test_parameterization_t packet_c {
-         17.0, 45.0, 73.0, 41, 108, "OPQRSTUVW", "YZABCDEFG", "IJKLMNOPQ"
+         17.0, 45.0, 73.0, 41, 108, "OPQRSTUVWXYZA", "CDEFGHIJKLMNO", "QRSTUVWXYZABC", "EFGHIJKLMNOPQ"
     };
 
     mavlink::HeronAI::msg::AI_TEST_PARAMETERIZATION packet_in{};
     packet_in.target_system = 41;
     packet_in.target_component = 108;
-    packet_in.field_file = to_char_array("OPQRSTUVW");
-    packet_in.red_file = to_char_array("YZABCDEFG");
-    packet_in.blue_file = to_char_array("IJKLMNOPQ");
+    packet_in.field_file = to_char_array("OPQRSTUVWXYZA");
+    packet_in.file_one = to_char_array("CDEFGHIJKLMNO");
+    packet_in.file_two = to_char_array("QRSTUVWXYZABC");
+    packet_in.tc_file = to_char_array("EFGHIJKLMNOPQ");
     packet_in.origin_lat = 17.0;
     packet_in.origin_lng = 45.0;
     packet_in.origin_alt = 73.0;
@@ -149,8 +152,9 @@ TEST(HeronAI_interop, AI_TEST_PARAMETERIZATION)
     EXPECT_EQ(packet_in.target_system, packet2.target_system);
     EXPECT_EQ(packet_in.target_component, packet2.target_component);
     EXPECT_EQ(packet_in.field_file, packet2.field_file);
-    EXPECT_EQ(packet_in.red_file, packet2.red_file);
-    EXPECT_EQ(packet_in.blue_file, packet2.blue_file);
+    EXPECT_EQ(packet_in.file_one, packet2.file_one);
+    EXPECT_EQ(packet_in.file_two, packet2.file_two);
+    EXPECT_EQ(packet_in.tc_file, packet2.tc_file);
     EXPECT_EQ(packet_in.origin_lat, packet2.origin_lat);
     EXPECT_EQ(packet_in.origin_lng, packet2.origin_lng);
     EXPECT_EQ(packet_in.origin_alt, packet2.origin_alt);

@@ -108,9 +108,10 @@
       <description>Structure used to transmit the current test parameterization conditions between the test host and participating unmanned systems.</description>
       <field type="uint8_t" name="target_system">System which should execute the command</field>
       <field type="uint8_t" name="target_component">Component which should execute the command, 0 for all components</field>
-      <field type="char[10]" name="field_file">The file name to be used for the field conditions, less the .ini file type extension.</field>
-      <field type="char[10]" name="red_file">The file name to be used for the red agent, less the .ini file type extension.</field>
-      <field type="char[10]" name="blue_file">The file name to be used for the blue agent, less the .ini file type extension.</field>
+      <field type="char[14]" name="field_file">The file name to be used for the field conditions, less the .ini file type extension.</field>
+      <field type="char[14]" name="file_one">The file name to be used for the red agent, less the .ini file type extension.</field>
+      <field type="char[14]" name="file_two">The file name to be used for the blue agent, less the .ini file type extension.</field>
+      <field type="char[14]" name="tc_file">The file name to be used for the test conditions, less the .ini file type extension.</field>
       <field type="float" name="origin_lat">The latitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
       <field type="float" name="origin_lng">The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
       <field type="float" name="origin_alt">The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
