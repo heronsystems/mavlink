@@ -451,7 +451,7 @@ static void mavlink_test_guided_target_stats(uint8_t system_id, uint8_t componen
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_guided_target_stats_t packet_in = {
-        17.0,45.0,73.0,101.0,53,120
+        17.0,45.0,73.0,101.0,53,120,187
     };
     mavlink_guided_target_stats_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -459,6 +459,7 @@ static void mavlink_test_guided_target_stats(uint8_t system_id, uint8_t componen
         packet1.y = packet_in.y;
         packet1.z = packet_in.z;
         packet1.distance = packet_in.distance;
+        packet1.systemID = packet_in.systemID;
         packet1.coordinate_frame = packet_in.coordinate_frame;
         packet1.state = packet_in.state;
         
@@ -475,12 +476,12 @@ static void mavlink_test_guided_target_stats(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_guided_target_stats_pack(system_id, component_id, &msg , packet1.x , packet1.y , packet1.z , packet1.distance , packet1.coordinate_frame , packet1.state );
+    mavlink_msg_guided_target_stats_pack(system_id, component_id, &msg , packet1.systemID , packet1.x , packet1.y , packet1.z , packet1.distance , packet1.coordinate_frame , packet1.state );
     mavlink_msg_guided_target_stats_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_guided_target_stats_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.x , packet1.y , packet1.z , packet1.distance , packet1.coordinate_frame , packet1.state );
+    mavlink_msg_guided_target_stats_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.systemID , packet1.x , packet1.y , packet1.z , packet1.distance , packet1.coordinate_frame , packet1.state );
     mavlink_msg_guided_target_stats_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -493,7 +494,7 @@ static void mavlink_test_guided_target_stats(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_guided_target_stats_send(MAVLINK_COMM_1 , packet1.x , packet1.y , packet1.z , packet1.distance , packet1.coordinate_frame , packet1.state );
+    mavlink_msg_guided_target_stats_send(MAVLINK_COMM_1 , packet1.systemID , packet1.x , packet1.y , packet1.z , packet1.distance , packet1.coordinate_frame , packet1.state );
     mavlink_msg_guided_target_stats_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

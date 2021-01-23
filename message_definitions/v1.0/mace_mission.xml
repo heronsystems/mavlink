@@ -103,6 +103,7 @@
 
     <message id="12507" name="GUIDED_TARGET_STATS">
       <description>Message containing stats relating to the aircrafts perception of a current target position along a trajectory and its distance.</description>
+      <field type="uint8_t" name="systemID">System reporting the stat information at the end of the network. MACE/Module is handled in the parent message definition.</field>
       <field type="float" name="x">X position of this position in the defined coordinate frame.</field>
       <field type="float" name="y">Y position of this position in the defined coordinate frame.</field>
       <field type="float" name="z">Z position of this position in the defined coordinate frame.</field>

@@ -579,12 +579,13 @@ TEST(mace_mission, GUIDED_TARGET_STATS)
     mavlink::MsgMap map2(msg);
 
     mavlink::mace_mission::msg::GUIDED_TARGET_STATS packet_in{};
+    packet_in.systemID = 53;
     packet_in.x = 17.0;
     packet_in.y = 45.0;
     packet_in.z = 73.0;
     packet_in.distance = 101.0;
-    packet_in.coordinate_frame = 53;
-    packet_in.state = 120;
+    packet_in.coordinate_frame = 120;
+    packet_in.state = 187;
 
     mavlink::mace_mission::msg::GUIDED_TARGET_STATS packet1{};
     mavlink::mace_mission::msg::GUIDED_TARGET_STATS packet2{};
@@ -599,6 +600,7 @@ TEST(mace_mission, GUIDED_TARGET_STATS)
 
     packet2.deserialize(map2);
 
+    EXPECT_EQ(packet1.systemID, packet2.systemID);
     EXPECT_EQ(packet1.x, packet2.x);
     EXPECT_EQ(packet1.y, packet2.y);
     EXPECT_EQ(packet1.z, packet2.z);
@@ -616,16 +618,17 @@ TEST(mace_mission_interop, GUIDED_TARGET_STATS)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_guided_target_stats_t packet_c {
-         17.0, 45.0, 73.0, 101.0, 53, 120
+         17.0, 45.0, 73.0, 101.0, 53, 120, 187
     };
 
     mavlink::mace_mission::msg::GUIDED_TARGET_STATS packet_in{};
+    packet_in.systemID = 53;
     packet_in.x = 17.0;
     packet_in.y = 45.0;
     packet_in.z = 73.0;
     packet_in.distance = 101.0;
-    packet_in.coordinate_frame = 53;
-    packet_in.state = 120;
+    packet_in.coordinate_frame = 120;
+    packet_in.state = 187;
 
     mavlink::mace_mission::msg::GUIDED_TARGET_STATS packet2{};
 
@@ -638,6 +641,7 @@ TEST(mace_mission_interop, GUIDED_TARGET_STATS)
         packet2.deserialize(map2);
     } (&msg);
 
+    EXPECT_EQ(packet_in.systemID, packet2.systemID);
     EXPECT_EQ(packet_in.x, packet2.x);
     EXPECT_EQ(packet_in.y, packet2.y);
     EXPECT_EQ(packet_in.z, packet2.z);

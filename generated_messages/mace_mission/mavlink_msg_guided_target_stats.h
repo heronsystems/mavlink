@@ -9,17 +9,18 @@ typedef struct __mavlink_guided_target_stats_t {
  float y; /*<  Y position of this position in the defined coordinate frame.*/
  float z; /*<  Z position of this position in the defined coordinate frame.*/
  float distance; /*<  Relative distance away the system is from the target location.*/
+ uint8_t systemID; /*<  System reporting the stat information at the end of the network. MACE/Module is handled in the parent message definition.*/
  uint8_t coordinate_frame; /*<  Coordinate frame of the position vector. This field is as related to the MAV_FRAME definition.*/
  uint8_t state; /*<  Current state of the controller in pursuit of the guided state.*/
 } mavlink_guided_target_stats_t;
 
-#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN 18
-#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_MIN_LEN 18
-#define MAVLINK_MSG_ID_12507_LEN 18
-#define MAVLINK_MSG_ID_12507_MIN_LEN 18
+#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN 19
+#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_MIN_LEN 19
+#define MAVLINK_MSG_ID_12507_LEN 19
+#define MAVLINK_MSG_ID_12507_MIN_LEN 19
 
-#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_CRC 12
-#define MAVLINK_MSG_ID_12507_CRC 12
+#define MAVLINK_MSG_ID_GUIDED_TARGET_STATS_CRC 71
+#define MAVLINK_MSG_ID_12507_CRC 71
 
 
 
@@ -27,25 +28,27 @@ typedef struct __mavlink_guided_target_stats_t {
 #define MAVLINK_MESSAGE_INFO_GUIDED_TARGET_STATS { \
     12507, \
     "GUIDED_TARGET_STATS", \
-    6, \
-    {  { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_guided_target_stats_t, x) }, \
+    7, \
+    {  { "systemID", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_guided_target_stats_t, systemID) }, \
+         { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_guided_target_stats_t, x) }, \
          { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_guided_target_stats_t, y) }, \
          { "z", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_guided_target_stats_t, z) }, \
          { "distance", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_guided_target_stats_t, distance) }, \
-         { "coordinate_frame", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_guided_target_stats_t, coordinate_frame) }, \
-         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_guided_target_stats_t, state) }, \
+         { "coordinate_frame", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_guided_target_stats_t, coordinate_frame) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 18, offsetof(mavlink_guided_target_stats_t, state) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_GUIDED_TARGET_STATS { \
     "GUIDED_TARGET_STATS", \
-    6, \
-    {  { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_guided_target_stats_t, x) }, \
+    7, \
+    {  { "systemID", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_guided_target_stats_t, systemID) }, \
+         { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_guided_target_stats_t, x) }, \
          { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_guided_target_stats_t, y) }, \
          { "z", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_guided_target_stats_t, z) }, \
          { "distance", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_guided_target_stats_t, distance) }, \
-         { "coordinate_frame", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_guided_target_stats_t, coordinate_frame) }, \
-         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_guided_target_stats_t, state) }, \
+         { "coordinate_frame", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_guided_target_stats_t, coordinate_frame) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 18, offsetof(mavlink_guided_target_stats_t, state) }, \
          } \
 }
 #endif
@@ -56,6 +59,7 @@ typedef struct __mavlink_guided_target_stats_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
+ * @param systemID  System reporting the stat information at the end of the network. MACE/Module is handled in the parent message definition.
  * @param x  X position of this position in the defined coordinate frame.
  * @param y  Y position of this position in the defined coordinate frame.
  * @param z  Z position of this position in the defined coordinate frame.
@@ -65,7 +69,7 @@ typedef struct __mavlink_guided_target_stats_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_guided_target_stats_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float x, float y, float z, float distance, uint8_t coordinate_frame, uint8_t state)
+                               uint8_t systemID, float x, float y, float z, float distance, uint8_t coordinate_frame, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN];
@@ -73,8 +77,9 @@ static inline uint16_t mavlink_msg_guided_target_stats_pack(uint8_t system_id, u
     _mav_put_float(buf, 4, y);
     _mav_put_float(buf, 8, z);
     _mav_put_float(buf, 12, distance);
-    _mav_put_uint8_t(buf, 16, coordinate_frame);
-    _mav_put_uint8_t(buf, 17, state);
+    _mav_put_uint8_t(buf, 16, systemID);
+    _mav_put_uint8_t(buf, 17, coordinate_frame);
+    _mav_put_uint8_t(buf, 18, state);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN);
 #else
@@ -83,6 +88,7 @@ static inline uint16_t mavlink_msg_guided_target_stats_pack(uint8_t system_id, u
     packet.y = y;
     packet.z = z;
     packet.distance = distance;
+    packet.systemID = systemID;
     packet.coordinate_frame = coordinate_frame;
     packet.state = state;
 
@@ -99,6 +105,7 @@ static inline uint16_t mavlink_msg_guided_target_stats_pack(uint8_t system_id, u
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
+ * @param systemID  System reporting the stat information at the end of the network. MACE/Module is handled in the parent message definition.
  * @param x  X position of this position in the defined coordinate frame.
  * @param y  Y position of this position in the defined coordinate frame.
  * @param z  Z position of this position in the defined coordinate frame.
@@ -109,7 +116,7 @@ static inline uint16_t mavlink_msg_guided_target_stats_pack(uint8_t system_id, u
  */
 static inline uint16_t mavlink_msg_guided_target_stats_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float x,float y,float z,float distance,uint8_t coordinate_frame,uint8_t state)
+                                   uint8_t systemID,float x,float y,float z,float distance,uint8_t coordinate_frame,uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN];
@@ -117,8 +124,9 @@ static inline uint16_t mavlink_msg_guided_target_stats_pack_chan(uint8_t system_
     _mav_put_float(buf, 4, y);
     _mav_put_float(buf, 8, z);
     _mav_put_float(buf, 12, distance);
-    _mav_put_uint8_t(buf, 16, coordinate_frame);
-    _mav_put_uint8_t(buf, 17, state);
+    _mav_put_uint8_t(buf, 16, systemID);
+    _mav_put_uint8_t(buf, 17, coordinate_frame);
+    _mav_put_uint8_t(buf, 18, state);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN);
 #else
@@ -127,6 +135,7 @@ static inline uint16_t mavlink_msg_guided_target_stats_pack_chan(uint8_t system_
     packet.y = y;
     packet.z = z;
     packet.distance = distance;
+    packet.systemID = systemID;
     packet.coordinate_frame = coordinate_frame;
     packet.state = state;
 
@@ -147,7 +156,7 @@ static inline uint16_t mavlink_msg_guided_target_stats_pack_chan(uint8_t system_
  */
 static inline uint16_t mavlink_msg_guided_target_stats_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_guided_target_stats_t* guided_target_stats)
 {
-    return mavlink_msg_guided_target_stats_pack(system_id, component_id, msg, guided_target_stats->x, guided_target_stats->y, guided_target_stats->z, guided_target_stats->distance, guided_target_stats->coordinate_frame, guided_target_stats->state);
+    return mavlink_msg_guided_target_stats_pack(system_id, component_id, msg, guided_target_stats->systemID, guided_target_stats->x, guided_target_stats->y, guided_target_stats->z, guided_target_stats->distance, guided_target_stats->coordinate_frame, guided_target_stats->state);
 }
 
 /**
@@ -161,13 +170,14 @@ static inline uint16_t mavlink_msg_guided_target_stats_encode(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_guided_target_stats_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_guided_target_stats_t* guided_target_stats)
 {
-    return mavlink_msg_guided_target_stats_pack_chan(system_id, component_id, chan, msg, guided_target_stats->x, guided_target_stats->y, guided_target_stats->z, guided_target_stats->distance, guided_target_stats->coordinate_frame, guided_target_stats->state);
+    return mavlink_msg_guided_target_stats_pack_chan(system_id, component_id, chan, msg, guided_target_stats->systemID, guided_target_stats->x, guided_target_stats->y, guided_target_stats->z, guided_target_stats->distance, guided_target_stats->coordinate_frame, guided_target_stats->state);
 }
 
 /**
  * @brief Send a guided_target_stats message
  * @param chan MAVLink channel to send the message
  *
+ * @param systemID  System reporting the stat information at the end of the network. MACE/Module is handled in the parent message definition.
  * @param x  X position of this position in the defined coordinate frame.
  * @param y  Y position of this position in the defined coordinate frame.
  * @param z  Z position of this position in the defined coordinate frame.
@@ -177,7 +187,7 @@ static inline uint16_t mavlink_msg_guided_target_stats_encode_chan(uint8_t syste
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_guided_target_stats_send(mavlink_channel_t chan, float x, float y, float z, float distance, uint8_t coordinate_frame, uint8_t state)
+static inline void mavlink_msg_guided_target_stats_send(mavlink_channel_t chan, uint8_t systemID, float x, float y, float z, float distance, uint8_t coordinate_frame, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN];
@@ -185,8 +195,9 @@ static inline void mavlink_msg_guided_target_stats_send(mavlink_channel_t chan, 
     _mav_put_float(buf, 4, y);
     _mav_put_float(buf, 8, z);
     _mav_put_float(buf, 12, distance);
-    _mav_put_uint8_t(buf, 16, coordinate_frame);
-    _mav_put_uint8_t(buf, 17, state);
+    _mav_put_uint8_t(buf, 16, systemID);
+    _mav_put_uint8_t(buf, 17, coordinate_frame);
+    _mav_put_uint8_t(buf, 18, state);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GUIDED_TARGET_STATS, buf, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_MIN_LEN, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_CRC);
 #else
@@ -195,6 +206,7 @@ static inline void mavlink_msg_guided_target_stats_send(mavlink_channel_t chan, 
     packet.y = y;
     packet.z = z;
     packet.distance = distance;
+    packet.systemID = systemID;
     packet.coordinate_frame = coordinate_frame;
     packet.state = state;
 
@@ -210,7 +222,7 @@ static inline void mavlink_msg_guided_target_stats_send(mavlink_channel_t chan, 
 static inline void mavlink_msg_guided_target_stats_send_struct(mavlink_channel_t chan, const mavlink_guided_target_stats_t* guided_target_stats)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_guided_target_stats_send(chan, guided_target_stats->x, guided_target_stats->y, guided_target_stats->z, guided_target_stats->distance, guided_target_stats->coordinate_frame, guided_target_stats->state);
+    mavlink_msg_guided_target_stats_send(chan, guided_target_stats->systemID, guided_target_stats->x, guided_target_stats->y, guided_target_stats->z, guided_target_stats->distance, guided_target_stats->coordinate_frame, guided_target_stats->state);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GUIDED_TARGET_STATS, (const char *)guided_target_stats, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_MIN_LEN, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_CRC);
 #endif
@@ -224,7 +236,7 @@ static inline void mavlink_msg_guided_target_stats_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_guided_target_stats_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float x, float y, float z, float distance, uint8_t coordinate_frame, uint8_t state)
+static inline void mavlink_msg_guided_target_stats_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t systemID, float x, float y, float z, float distance, uint8_t coordinate_frame, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -232,8 +244,9 @@ static inline void mavlink_msg_guided_target_stats_send_buf(mavlink_message_t *m
     _mav_put_float(buf, 4, y);
     _mav_put_float(buf, 8, z);
     _mav_put_float(buf, 12, distance);
-    _mav_put_uint8_t(buf, 16, coordinate_frame);
-    _mav_put_uint8_t(buf, 17, state);
+    _mav_put_uint8_t(buf, 16, systemID);
+    _mav_put_uint8_t(buf, 17, coordinate_frame);
+    _mav_put_uint8_t(buf, 18, state);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GUIDED_TARGET_STATS, buf, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_MIN_LEN, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_LEN, MAVLINK_MSG_ID_GUIDED_TARGET_STATS_CRC);
 #else
@@ -242,6 +255,7 @@ static inline void mavlink_msg_guided_target_stats_send_buf(mavlink_message_t *m
     packet->y = y;
     packet->z = z;
     packet->distance = distance;
+    packet->systemID = systemID;
     packet->coordinate_frame = coordinate_frame;
     packet->state = state;
 
@@ -254,6 +268,16 @@ static inline void mavlink_msg_guided_target_stats_send_buf(mavlink_message_t *m
 
 // MESSAGE GUIDED_TARGET_STATS UNPACKING
 
+
+/**
+ * @brief Get field systemID from guided_target_stats message
+ *
+ * @return  System reporting the stat information at the end of the network. MACE/Module is handled in the parent message definition.
+ */
+static inline uint8_t mavlink_msg_guided_target_stats_get_systemID(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  16);
+}
 
 /**
  * @brief Get field x from guided_target_stats message
@@ -302,7 +326,7 @@ static inline float mavlink_msg_guided_target_stats_get_distance(const mavlink_m
  */
 static inline uint8_t mavlink_msg_guided_target_stats_get_coordinate_frame(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  16);
+    return _MAV_RETURN_uint8_t(msg,  17);
 }
 
 /**
@@ -312,7 +336,7 @@ static inline uint8_t mavlink_msg_guided_target_stats_get_coordinate_frame(const
  */
 static inline uint8_t mavlink_msg_guided_target_stats_get_state(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  17);
+    return _MAV_RETURN_uint8_t(msg,  18);
 }
 
 /**
@@ -328,6 +352,7 @@ static inline void mavlink_msg_guided_target_stats_decode(const mavlink_message_
     guided_target_stats->y = mavlink_msg_guided_target_stats_get_y(msg);
     guided_target_stats->z = mavlink_msg_guided_target_stats_get_z(msg);
     guided_target_stats->distance = mavlink_msg_guided_target_stats_get_distance(msg);
+    guided_target_stats->systemID = mavlink_msg_guided_target_stats_get_systemID(msg);
     guided_target_stats->coordinate_frame = mavlink_msg_guided_target_stats_get_coordinate_frame(msg);
     guided_target_stats->state = mavlink_msg_guided_target_stats_get_state(msg);
 #else

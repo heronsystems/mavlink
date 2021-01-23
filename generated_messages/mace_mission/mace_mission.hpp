@@ -21,7 +21,7 @@ namespace mace_mission {
 /**
  * Array of msg_entry needed for @p mavlink_parse_char() (trought @p mavlink_get_msg_entry())
  */
-constexpr std::array<mavlink_msg_entry_t, 8> MESSAGE_ENTRIES {{ {12500, 132, 5, 5, 0, 0, 0}, {12501, 219, 1, 1, 1, 0, 0}, {12502, 21, 2, 2, 1, 0, 0}, {12503, 232, 4, 7, 3, 2, 3}, {12504, 57, 3, 6, 3, 0, 1}, {12505, 13, 4, 7, 3, 2, 3}, {12506, 117, 37, 40, 3, 32, 33}, {12507, 12, 18, 18, 0, 0, 0} }};
+constexpr std::array<mavlink_msg_entry_t, 8> MESSAGE_ENTRIES {{ {12500, 132, 5, 5, 0, 0, 0}, {12501, 219, 1, 1, 1, 0, 0}, {12502, 21, 2, 2, 1, 0, 0}, {12503, 232, 4, 7, 3, 2, 3}, {12504, 57, 3, 6, 3, 0, 1}, {12505, 13, 4, 7, 3, 2, 3}, {12506, 117, 37, 40, 3, 32, 33}, {12507, 71, 19, 19, 0, 0, 0} }};
 
 //! MAVLINK VERSION
 constexpr auto MAVLINK_VERSION = 3;

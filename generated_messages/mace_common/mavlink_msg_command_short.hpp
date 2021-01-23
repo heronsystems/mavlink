@@ -12,7 +12,7 @@ namespace msg {
  * A short command message for those messages only requiring one parameter. Th
  */
 struct COMMAND_SHORT : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 12401;
+    static constexpr msgid_t MSG_ID = 12402;
     static constexpr size_t LENGTH = 9;
     static constexpr size_t MIN_LENGTH = 9;
     static constexpr uint8_t CRC_EXTRA = 79;

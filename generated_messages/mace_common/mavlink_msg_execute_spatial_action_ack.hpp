@@ -12,7 +12,7 @@ namespace msg {
  * Acknowledgement of a goto command.
  */
 struct EXECUTE_SPATIAL_ACTION_ACK : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 12403;
+    static constexpr msgid_t MSG_ID = 12404;
     static constexpr size_t LENGTH = 1;
     static constexpr size_t MIN_LENGTH = 1;
     static constexpr uint8_t CRC_EXTRA = 108;

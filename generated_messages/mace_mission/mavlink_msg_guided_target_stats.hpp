@@ -13,12 +13,13 @@ namespace msg {
  */
 struct GUIDED_TARGET_STATS : mavlink::Message {
     static constexpr msgid_t MSG_ID = 12507;
-    static constexpr size_t LENGTH = 18;
-    static constexpr size_t MIN_LENGTH = 18;
-    static constexpr uint8_t CRC_EXTRA = 12;
+    static constexpr size_t LENGTH = 19;
+    static constexpr size_t MIN_LENGTH = 19;
+    static constexpr uint8_t CRC_EXTRA = 71;
     static constexpr auto NAME = "GUIDED_TARGET_STATS";
 
 
+    uint8_t systemID; /*<  System reporting the stat information at the end of the network. MACE/Module is handled in the parent message definition. */
     float x; /*<  X position of this position in the defined coordinate frame. */
     float y; /*<  Y position of this position in the defined coordinate frame. */
     float z; /*<  Z position of this position in the defined coordinate frame. */
@@ -42,6 +43,7 @@ struct GUIDED_TARGET_STATS : mavlink::Message {
         std::stringstream ss;
 
         ss << NAME << ":" << std::endl;
+        ss << "  systemID: " << +systemID << std::endl;
         ss << "  x: " << x << std::endl;
         ss << "  y: " << y << std::endl;
         ss << "  z: " << z << std::endl;
@@ -60,8 +62,9 @@ struct GUIDED_TARGET_STATS : mavlink::Message {
         map << y;                             // offset: 4
         map << z;                             // offset: 8
         map << distance;                      // offset: 12
-        map << coordinate_frame;              // offset: 16
-        map << state;                         // offset: 17
+        map << systemID;                      // offset: 16
+        map << coordinate_frame;              // offset: 17
+        map << state;                         // offset: 18
     }
 
     inline void deserialize(mavlink::MsgMap &map) override
@@ -70,8 +73,9 @@ struct GUIDED_TARGET_STATS : mavlink::Message {
         map >> y;                             // offset: 4
         map >> z;                             // offset: 8
         map >> distance;                      // offset: 12
-        map >> coordinate_frame;              // offset: 16
-        map >> state;                         // offset: 17
+        map >> systemID;                      // offset: 16
+        map >> coordinate_frame;              // offset: 17
+        map >> state;                         // offset: 18
     }
 };
 
