@@ -37,7 +37,7 @@ static void mavlink_test_mace_heartbeat(uint8_t system_id, uint8_t component_id,
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_mace_heartbeat_t packet_in = {
-        5,72,139,206,17,3
+        5,72,139,206,17,84,151,3
     };
     mavlink_mace_heartbeat_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -45,6 +45,8 @@ static void mavlink_test_mace_heartbeat(uint8_t system_id, uint8_t component_id,
         packet1.type = packet_in.type;
         packet1.autopilot = packet_in.autopilot;
         packet1.flight_mode = packet_in.flight_mode;
+        packet1.armed = packet_in.armed;
+        packet1.inMotion = packet_in.inMotion;
         packet1.vehicle_hsm = packet_in.vehicle_hsm;
         packet1.mavlink_version = packet_in.mavlink_version;
         
@@ -61,12 +63,12 @@ static void mavlink_test_mace_heartbeat(uint8_t system_id, uint8_t component_id,
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_mace_heartbeat_pack(system_id, component_id, &msg , packet1.vehicle_id , packet1.type , packet1.autopilot , packet1.flight_mode , packet1.vehicle_hsm );
+    mavlink_msg_mace_heartbeat_pack(system_id, component_id, &msg , packet1.vehicle_id , packet1.type , packet1.autopilot , packet1.flight_mode , packet1.armed , packet1.inMotion , packet1.vehicle_hsm );
     mavlink_msg_mace_heartbeat_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_mace_heartbeat_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.vehicle_id , packet1.type , packet1.autopilot , packet1.flight_mode , packet1.vehicle_hsm );
+    mavlink_msg_mace_heartbeat_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.vehicle_id , packet1.type , packet1.autopilot , packet1.flight_mode , packet1.armed , packet1.inMotion , packet1.vehicle_hsm );
     mavlink_msg_mace_heartbeat_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -79,7 +81,7 @@ static void mavlink_test_mace_heartbeat(uint8_t system_id, uint8_t component_id,
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_mace_heartbeat_send(MAVLINK_COMM_1 , packet1.vehicle_id , packet1.type , packet1.autopilot , packet1.flight_mode , packet1.vehicle_hsm );
+    mavlink_msg_mace_heartbeat_send(MAVLINK_COMM_1 , packet1.vehicle_id , packet1.type , packet1.autopilot , packet1.flight_mode , packet1.armed , packet1.inMotion , packet1.vehicle_hsm );
     mavlink_msg_mace_heartbeat_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

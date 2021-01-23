@@ -11,6 +11,8 @@
       <field type="uint8_t" name="type" enum="MAV_TYPE">Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.</field>
       <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.</field>
       <field type="uint8_t" name="flight_mode">System mode.</field>
+      <field type="uint8_t" name="armed">Indication of whether or not the vehicle is currently armed. </field>
+	  <field type="uint8_t" name="inMotion">Indication of whether or not the vehicle is currently in motion. This would imply flight for aircraft or moving for vehicles. </field>
       <field type="uint8_t" name="vehicle_hsm">System status flag.</field>
       <field type="uint8_t_mavlink_version" name="mavlink_version">MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version</field>
     </message>
