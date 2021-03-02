@@ -15,7 +15,7 @@ struct AI_TEST_PARAMETERIZATION : mavlink::Message {
     static constexpr msgid_t MSG_ID = 12002;
     static constexpr size_t LENGTH = 73;
     static constexpr size_t MIN_LENGTH = 73;
-    static constexpr uint8_t CRC_EXTRA = 38;
+    static constexpr uint8_t CRC_EXTRA = 253;
     static constexpr auto NAME = "AI_TEST_PARAMETERIZATION";
 
 
@@ -29,7 +29,7 @@ struct AI_TEST_PARAMETERIZATION : mavlink::Message {
     float origin_lng; /*<  The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria. */
     float origin_alt; /*<  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria. */
     uint8_t test_id; /*<  Test ID */
-    uint8_t blue_agent_tpye; /*<  Enum of blue agent type */
+    uint8_t blue_agent_type; /*<  Enum of blue agent type */
     uint8_t red_agent_type; /*<  Enum of red agent type */
 
 
@@ -58,7 +58,7 @@ struct AI_TEST_PARAMETERIZATION : mavlink::Message {
         ss << "  origin_lng: " << origin_lng << std::endl;
         ss << "  origin_alt: " << origin_alt << std::endl;
         ss << "  test_id: " << +test_id << std::endl;
-        ss << "  blue_agent_tpye: " << +blue_agent_tpye << std::endl;
+        ss << "  blue_agent_type: " << +blue_agent_type << std::endl;
         ss << "  red_agent_type: " << +red_agent_type << std::endl;
 
         return ss.str();
@@ -78,7 +78,7 @@ struct AI_TEST_PARAMETERIZATION : mavlink::Message {
         map << file_two;                      // offset: 42
         map << tc_file;                       // offset: 56
         map << test_id;                       // offset: 70
-        map << blue_agent_tpye;               // offset: 71
+        map << blue_agent_type;               // offset: 71
         map << red_agent_type;                // offset: 72
     }
 
@@ -94,7 +94,7 @@ struct AI_TEST_PARAMETERIZATION : mavlink::Message {
         map >> file_two;                      // offset: 42
         map >> tc_file;                       // offset: 56
         map >> test_id;                       // offset: 70
-        map >> blue_agent_tpye;               // offset: 71
+        map >> blue_agent_type;               // offset: 71
         map >> red_agent_type;                // offset: 72
     }
 };

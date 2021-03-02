@@ -15,7 +15,7 @@ typedef struct __mavlink_ai_test_parameterization_t {
  char file_two[14]; /*<  The file name to be used for the blue agent, less the .ini file type extension.*/
  char tc_file[14]; /*<  The file name to be used for the test conditions, less the .ini file type extension.*/
  uint8_t test_id; /*<  Test ID*/
- uint8_t blue_agent_tpye; /*<  Enum of blue agent type*/
+ uint8_t blue_agent_type; /*<  Enum of blue agent type*/
  uint8_t red_agent_type; /*<  Enum of red agent type*/
 } mavlink_ai_test_parameterization_t;
 
@@ -24,8 +24,8 @@ typedef struct __mavlink_ai_test_parameterization_t {
 #define MAVLINK_MSG_ID_12002_LEN 73
 #define MAVLINK_MSG_ID_12002_MIN_LEN 73
 
-#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC 38
-#define MAVLINK_MSG_ID_12002_CRC 38
+#define MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC 253
+#define MAVLINK_MSG_ID_12002_CRC 253
 
 #define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_FIELD_FILE_LEN 14
 #define MAVLINK_MSG_AI_TEST_PARAMETERIZATION_FIELD_FILE_ONE_LEN 14
@@ -47,7 +47,7 @@ typedef struct __mavlink_ai_test_parameterization_t {
          { "origin_lng", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_ai_test_parameterization_t, origin_lng) }, \
          { "origin_alt", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_ai_test_parameterization_t, origin_alt) }, \
          { "test_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 70, offsetof(mavlink_ai_test_parameterization_t, test_id) }, \
-         { "blue_agent_tpye", NULL, MAVLINK_TYPE_UINT8_T, 0, 71, offsetof(mavlink_ai_test_parameterization_t, blue_agent_tpye) }, \
+         { "blue_agent_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 71, offsetof(mavlink_ai_test_parameterization_t, blue_agent_type) }, \
          { "red_agent_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 72, offsetof(mavlink_ai_test_parameterization_t, red_agent_type) }, \
          } \
 }
@@ -65,7 +65,7 @@ typedef struct __mavlink_ai_test_parameterization_t {
          { "origin_lng", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_ai_test_parameterization_t, origin_lng) }, \
          { "origin_alt", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_ai_test_parameterization_t, origin_alt) }, \
          { "test_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 70, offsetof(mavlink_ai_test_parameterization_t, test_id) }, \
-         { "blue_agent_tpye", NULL, MAVLINK_TYPE_UINT8_T, 0, 71, offsetof(mavlink_ai_test_parameterization_t, blue_agent_tpye) }, \
+         { "blue_agent_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 71, offsetof(mavlink_ai_test_parameterization_t, blue_agent_type) }, \
          { "red_agent_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 72, offsetof(mavlink_ai_test_parameterization_t, red_agent_type) }, \
          } \
 }
@@ -87,12 +87,12 @@ typedef struct __mavlink_ai_test_parameterization_t {
  * @param origin_lng  The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_alt  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param test_id  Test ID
- * @param blue_agent_tpye  Enum of blue agent type
+ * @param blue_agent_type  Enum of blue agent type
  * @param red_agent_type  Enum of red agent type
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt, uint8_t test_id, uint8_t blue_agent_tpye, uint8_t red_agent_type)
+                               uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt, uint8_t test_id, uint8_t blue_agent_type, uint8_t red_agent_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN];
@@ -102,7 +102,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
     _mav_put_uint8_t(buf, 70, test_id);
-    _mav_put_uint8_t(buf, 71, blue_agent_tpye);
+    _mav_put_uint8_t(buf, 71, blue_agent_type);
     _mav_put_uint8_t(buf, 72, red_agent_type);
     _mav_put_char_array(buf, 14, field_file, 14);
     _mav_put_char_array(buf, 28, file_one, 14);
@@ -117,7 +117,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.test_id = test_id;
-    packet.blue_agent_tpye = blue_agent_tpye;
+    packet.blue_agent_type = blue_agent_type;
     packet.red_agent_type = red_agent_type;
     mav_array_memcpy(packet.field_file, field_file, sizeof(char)*14);
     mav_array_memcpy(packet.file_one, file_one, sizeof(char)*14);
@@ -146,13 +146,13 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack(uint8_t system_
  * @param origin_lng  The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_alt  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param test_id  Test ID
- * @param blue_agent_tpye  Enum of blue agent type
+ * @param blue_agent_type  Enum of blue agent type
  * @param red_agent_type  Enum of red agent type
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,const char *field_file,const char *file_one,const char *file_two,const char *tc_file,float origin_lat,float origin_lng,float origin_alt,uint8_t test_id,uint8_t blue_agent_tpye,uint8_t red_agent_type)
+                                   uint8_t target_system,uint8_t target_component,const char *field_file,const char *file_one,const char *file_two,const char *tc_file,float origin_lat,float origin_lng,float origin_alt,uint8_t test_id,uint8_t blue_agent_type,uint8_t red_agent_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN];
@@ -162,7 +162,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t sy
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
     _mav_put_uint8_t(buf, 70, test_id);
-    _mav_put_uint8_t(buf, 71, blue_agent_tpye);
+    _mav_put_uint8_t(buf, 71, blue_agent_type);
     _mav_put_uint8_t(buf, 72, red_agent_type);
     _mav_put_char_array(buf, 14, field_file, 14);
     _mav_put_char_array(buf, 28, file_one, 14);
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t sy
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.test_id = test_id;
-    packet.blue_agent_tpye = blue_agent_tpye;
+    packet.blue_agent_type = blue_agent_type;
     packet.red_agent_type = red_agent_type;
     mav_array_memcpy(packet.field_file, field_file, sizeof(char)*14);
     mav_array_memcpy(packet.file_one, file_one, sizeof(char)*14);
@@ -200,7 +200,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_pack_chan(uint8_t sy
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ai_test_parameterization_t* ai_test_parameterization)
 {
-    return mavlink_msg_ai_test_parameterization_pack(system_id, component_id, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt, ai_test_parameterization->test_id, ai_test_parameterization->blue_agent_tpye, ai_test_parameterization->red_agent_type);
+    return mavlink_msg_ai_test_parameterization_pack(system_id, component_id, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt, ai_test_parameterization->test_id, ai_test_parameterization->blue_agent_type, ai_test_parameterization->red_agent_type);
 }
 
 /**
@@ -214,7 +214,7 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_encode(uint8_t syste
  */
 static inline uint16_t mavlink_msg_ai_test_parameterization_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ai_test_parameterization_t* ai_test_parameterization)
 {
-    return mavlink_msg_ai_test_parameterization_pack_chan(system_id, component_id, chan, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt, ai_test_parameterization->test_id, ai_test_parameterization->blue_agent_tpye, ai_test_parameterization->red_agent_type);
+    return mavlink_msg_ai_test_parameterization_pack_chan(system_id, component_id, chan, msg, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt, ai_test_parameterization->test_id, ai_test_parameterization->blue_agent_type, ai_test_parameterization->red_agent_type);
 }
 
 /**
@@ -231,12 +231,12 @@ static inline uint16_t mavlink_msg_ai_test_parameterization_encode_chan(uint8_t 
  * @param origin_lng  The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param origin_alt  The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.
  * @param test_id  Test ID
- * @param blue_agent_tpye  Enum of blue agent type
+ * @param blue_agent_type  Enum of blue agent type
  * @param red_agent_type  Enum of red agent type
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt, uint8_t test_id, uint8_t blue_agent_tpye, uint8_t red_agent_type)
+static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt, uint8_t test_id, uint8_t blue_agent_type, uint8_t red_agent_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN];
@@ -246,7 +246,7 @@ static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t c
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
     _mav_put_uint8_t(buf, 70, test_id);
-    _mav_put_uint8_t(buf, 71, blue_agent_tpye);
+    _mav_put_uint8_t(buf, 71, blue_agent_type);
     _mav_put_uint8_t(buf, 72, red_agent_type);
     _mav_put_char_array(buf, 14, field_file, 14);
     _mav_put_char_array(buf, 28, file_one, 14);
@@ -261,7 +261,7 @@ static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t c
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.test_id = test_id;
-    packet.blue_agent_tpye = blue_agent_tpye;
+    packet.blue_agent_type = blue_agent_type;
     packet.red_agent_type = red_agent_type;
     mav_array_memcpy(packet.field_file, field_file, sizeof(char)*14);
     mav_array_memcpy(packet.file_one, file_one, sizeof(char)*14);
@@ -279,7 +279,7 @@ static inline void mavlink_msg_ai_test_parameterization_send(mavlink_channel_t c
 static inline void mavlink_msg_ai_test_parameterization_send_struct(mavlink_channel_t chan, const mavlink_ai_test_parameterization_t* ai_test_parameterization)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_ai_test_parameterization_send(chan, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt, ai_test_parameterization->test_id, ai_test_parameterization->blue_agent_tpye, ai_test_parameterization->red_agent_type);
+    mavlink_msg_ai_test_parameterization_send(chan, ai_test_parameterization->target_system, ai_test_parameterization->target_component, ai_test_parameterization->field_file, ai_test_parameterization->file_one, ai_test_parameterization->file_two, ai_test_parameterization->tc_file, ai_test_parameterization->origin_lat, ai_test_parameterization->origin_lng, ai_test_parameterization->origin_alt, ai_test_parameterization->test_id, ai_test_parameterization->blue_agent_type, ai_test_parameterization->red_agent_type);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION, (const char *)ai_test_parameterization, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_MIN_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN, MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_CRC);
 #endif
@@ -293,7 +293,7 @@ static inline void mavlink_msg_ai_test_parameterization_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt, uint8_t test_id, uint8_t blue_agent_tpye, uint8_t red_agent_type)
+static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const char *field_file, const char *file_one, const char *file_two, const char *tc_file, float origin_lat, float origin_lng, float origin_alt, uint8_t test_id, uint8_t blue_agent_type, uint8_t red_agent_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -303,7 +303,7 @@ static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message
     _mav_put_uint8_t(buf, 12, target_system);
     _mav_put_uint8_t(buf, 13, target_component);
     _mav_put_uint8_t(buf, 70, test_id);
-    _mav_put_uint8_t(buf, 71, blue_agent_tpye);
+    _mav_put_uint8_t(buf, 71, blue_agent_type);
     _mav_put_uint8_t(buf, 72, red_agent_type);
     _mav_put_char_array(buf, 14, field_file, 14);
     _mav_put_char_array(buf, 28, file_one, 14);
@@ -318,7 +318,7 @@ static inline void mavlink_msg_ai_test_parameterization_send_buf(mavlink_message
     packet->target_system = target_system;
     packet->target_component = target_component;
     packet->test_id = test_id;
-    packet->blue_agent_tpye = blue_agent_tpye;
+    packet->blue_agent_type = blue_agent_type;
     packet->red_agent_type = red_agent_type;
     mav_array_memcpy(packet->field_file, field_file, sizeof(char)*14);
     mav_array_memcpy(packet->file_one, file_one, sizeof(char)*14);
@@ -435,11 +435,11 @@ static inline uint8_t mavlink_msg_ai_test_parameterization_get_test_id(const mav
 }
 
 /**
- * @brief Get field blue_agent_tpye from ai_test_parameterization message
+ * @brief Get field blue_agent_type from ai_test_parameterization message
  *
  * @return  Enum of blue agent type
  */
-static inline uint8_t mavlink_msg_ai_test_parameterization_get_blue_agent_tpye(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_ai_test_parameterization_get_blue_agent_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  71);
 }
@@ -473,7 +473,7 @@ static inline void mavlink_msg_ai_test_parameterization_decode(const mavlink_mes
     mavlink_msg_ai_test_parameterization_get_file_two(msg, ai_test_parameterization->file_two);
     mavlink_msg_ai_test_parameterization_get_tc_file(msg, ai_test_parameterization->tc_file);
     ai_test_parameterization->test_id = mavlink_msg_ai_test_parameterization_get_test_id(msg);
-    ai_test_parameterization->blue_agent_tpye = mavlink_msg_ai_test_parameterization_get_blue_agent_tpye(msg);
+    ai_test_parameterization->blue_agent_type = mavlink_msg_ai_test_parameterization_get_blue_agent_type(msg);
     ai_test_parameterization->red_agent_type = mavlink_msg_ai_test_parameterization_get_red_agent_type(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN? msg->len : MAVLINK_MSG_ID_AI_TEST_PARAMETERIZATION_LEN;
