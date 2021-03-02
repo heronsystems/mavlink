@@ -90,6 +90,9 @@ TEST(HeronAI, AI_TEST_PARAMETERIZATION)
     packet_in.origin_lat = 17.0;
     packet_in.origin_lng = 45.0;
     packet_in.origin_alt = 73.0;
+    packet_in.test_id = 87;
+    packet_in.blue_agent_tpye = 154;
+    packet_in.red_agent_type = 221;
 
     mavlink::HeronAI::msg::AI_TEST_PARAMETERIZATION packet1{};
     mavlink::HeronAI::msg::AI_TEST_PARAMETERIZATION packet2{};
@@ -113,6 +116,9 @@ TEST(HeronAI, AI_TEST_PARAMETERIZATION)
     EXPECT_EQ(packet1.origin_lat, packet2.origin_lat);
     EXPECT_EQ(packet1.origin_lng, packet2.origin_lng);
     EXPECT_EQ(packet1.origin_alt, packet2.origin_alt);
+    EXPECT_EQ(packet1.test_id, packet2.test_id);
+    EXPECT_EQ(packet1.blue_agent_tpye, packet2.blue_agent_tpye);
+    EXPECT_EQ(packet1.red_agent_type, packet2.red_agent_type);
 }
 
 #ifdef TEST_INTEROP
@@ -124,7 +130,7 @@ TEST(HeronAI_interop, AI_TEST_PARAMETERIZATION)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_ai_test_parameterization_t packet_c {
-         17.0, 45.0, 73.0, 41, 108, "OPQRSTUVWXYZA", "CDEFGHIJKLMNO", "QRSTUVWXYZABC", "EFGHIJKLMNOPQ"
+         17.0, 45.0, 73.0, 41, 108, "OPQRSTUVWXYZA", "CDEFGHIJKLMNO", "QRSTUVWXYZABC", "EFGHIJKLMNOPQ", 87, 154, 221
     };
 
     mavlink::HeronAI::msg::AI_TEST_PARAMETERIZATION packet_in{};
@@ -137,6 +143,9 @@ TEST(HeronAI_interop, AI_TEST_PARAMETERIZATION)
     packet_in.origin_lat = 17.0;
     packet_in.origin_lng = 45.0;
     packet_in.origin_alt = 73.0;
+    packet_in.test_id = 87;
+    packet_in.blue_agent_tpye = 154;
+    packet_in.red_agent_type = 221;
 
     mavlink::HeronAI::msg::AI_TEST_PARAMETERIZATION packet2{};
 
@@ -158,6 +167,9 @@ TEST(HeronAI_interop, AI_TEST_PARAMETERIZATION)
     EXPECT_EQ(packet_in.origin_lat, packet2.origin_lat);
     EXPECT_EQ(packet_in.origin_lng, packet2.origin_lng);
     EXPECT_EQ(packet_in.origin_alt, packet2.origin_alt);
+    EXPECT_EQ(packet_in.test_id, packet2.test_id);
+    EXPECT_EQ(packet_in.blue_agent_tpye, packet2.blue_agent_tpye);
+    EXPECT_EQ(packet_in.red_agent_type, packet2.red_agent_type);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);

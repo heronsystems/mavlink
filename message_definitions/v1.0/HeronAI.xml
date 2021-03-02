@@ -115,6 +115,9 @@
       <field type="float" name="origin_lat">The latitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
       <field type="float" name="origin_lng">The longitude location of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
       <field type="float" name="origin_alt">The altitude location (relative to ground) of the origin for this explicit test. This is the common reference frame for all the aircraft to be using between communications. Agents will also reference this condition for their starting route criteria.</field>
+      <field type="uint8_t" name="test_id">Test ID</field>
+      <field type="uint8_t" name="blue_agent_tpye">Enum of blue agent type</field>
+      <field type="uint8_t" name="red_agent_type">Enum of red agent type</field>
     </message>
 
     <message id="12003" name="AI_EXECUTE_PROCEDURAL">

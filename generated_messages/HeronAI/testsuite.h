@@ -109,7 +109,7 @@ static void mavlink_test_ai_test_parameterization(uint8_t system_id, uint8_t com
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_ai_test_parameterization_t packet_in = {
-        17.0,45.0,73.0,41,108,"OPQRSTUVWXYZA","CDEFGHIJKLMNO","QRSTUVWXYZABC","EFGHIJKLMNOPQ"
+        17.0,45.0,73.0,41,108,"OPQRSTUVWXYZA","CDEFGHIJKLMNO","QRSTUVWXYZABC","EFGHIJKLMNOPQ",87,154,221
     };
     mavlink_ai_test_parameterization_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -118,6 +118,9 @@ static void mavlink_test_ai_test_parameterization(uint8_t system_id, uint8_t com
         packet1.origin_alt = packet_in.origin_alt;
         packet1.target_system = packet_in.target_system;
         packet1.target_component = packet_in.target_component;
+        packet1.test_id = packet_in.test_id;
+        packet1.blue_agent_tpye = packet_in.blue_agent_tpye;
+        packet1.red_agent_type = packet_in.red_agent_type;
         
         mav_array_memcpy(packet1.field_file, packet_in.field_file, sizeof(char)*14);
         mav_array_memcpy(packet1.file_one, packet_in.file_one, sizeof(char)*14);
@@ -136,12 +139,12 @@ static void mavlink_test_ai_test_parameterization(uint8_t system_id, uint8_t com
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_ai_test_parameterization_pack(system_id, component_id, &msg , packet1.target_system , packet1.target_component , packet1.field_file , packet1.file_one , packet1.file_two , packet1.tc_file , packet1.origin_lat , packet1.origin_lng , packet1.origin_alt );
+    mavlink_msg_ai_test_parameterization_pack(system_id, component_id, &msg , packet1.target_system , packet1.target_component , packet1.field_file , packet1.file_one , packet1.file_two , packet1.tc_file , packet1.origin_lat , packet1.origin_lng , packet1.origin_alt , packet1.test_id , packet1.blue_agent_tpye , packet1.red_agent_type );
     mavlink_msg_ai_test_parameterization_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_ai_test_parameterization_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.target_system , packet1.target_component , packet1.field_file , packet1.file_one , packet1.file_two , packet1.tc_file , packet1.origin_lat , packet1.origin_lng , packet1.origin_alt );
+    mavlink_msg_ai_test_parameterization_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.target_system , packet1.target_component , packet1.field_file , packet1.file_one , packet1.file_two , packet1.tc_file , packet1.origin_lat , packet1.origin_lng , packet1.origin_alt , packet1.test_id , packet1.blue_agent_tpye , packet1.red_agent_type );
     mavlink_msg_ai_test_parameterization_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -154,7 +157,7 @@ static void mavlink_test_ai_test_parameterization(uint8_t system_id, uint8_t com
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_ai_test_parameterization_send(MAVLINK_COMM_1 , packet1.target_system , packet1.target_component , packet1.field_file , packet1.file_one , packet1.file_two , packet1.tc_file , packet1.origin_lat , packet1.origin_lng , packet1.origin_alt );
+    mavlink_msg_ai_test_parameterization_send(MAVLINK_COMM_1 , packet1.target_system , packet1.target_component , packet1.field_file , packet1.file_one , packet1.file_two , packet1.tc_file , packet1.origin_lat , packet1.origin_lng , packet1.origin_alt , packet1.test_id , packet1.blue_agent_tpye , packet1.red_agent_type );
     mavlink_msg_ai_test_parameterization_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
